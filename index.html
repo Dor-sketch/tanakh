@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>קורא התנ"ך העברי | Hebrew Bible Reader by Dor Pascal</title>
+    <meta name="description" content="קורא התנ"ך העברי מאפשר לך לקרוא את התנ"ך בעברית באופן אינטראקטיבי. בחר ספר, פרק וקרא פסוקים בעברית עם ממשק נוח למשתמש.">
+    <meta name="author" content="Dor Pascal">
+    <meta name="keywords" content="תנ"ך, קורא תנ"ך, תנ"ך עברי, Bible, Hebrew Bible, Tanakh, Torah, Nevi'im, Ketuvim">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dorpascal.com/tanakh/">
+    <meta property="og:title" content="קורא התנ"ך העברי | Hebrew Bible Reader">
+    <meta property="og:description" content="קרא את התנ"ך בעברית באופן אינטראקטיבי. בחר ספר, פרק וקרא פסוקים בעברית.">
+    <meta property="og:image" content="https://dorpascal.com/tanakh/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://dorpascal.com/tanakh/">
+    <meta property="twitter:title" content="קורא התנ"ך העברי | Hebrew Bible Reader">
+    <meta property="twitter:description" content="קרא את התנ"ך בעברית באופן אינטראקטיבי. בחר ספר, פרק וקרא פסוקים בעברית.">
+    <meta property="twitter:image" content="https://dorpascal.com/tanakh/twitter-image.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://dorpascal.com/tanakh/favicon.png">
+    <link rel="apple-touch-icon" href="https://dorpascal.com/tanakh/apple-touch-icon.png">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://dorpascal.com/tanakh/">
+
+    <!-- Styles -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;700&display=swap');
+        body {
+            font-family: 'Frank Ruhl Libre', serif;
+            background-color: #f0e7d8;
+        }
+        .verse {
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .verse:hover {
+            background-color: #e6d8c3;
+        }
+    </style>
+
+    <!-- Schema.org markup for Google -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "קורא התנ"ך העברי | Hebrew Bible Reader",
+      "url": "https://dorpascal.com/tanakh/",
+      "author": {
+        "@type": "Person",
+        "name": "Dor Pascal"
+      },
+      "description": "An interactive Hebrew Bible reader allowing users to select books, chapters, and read verses in Hebrew.",
+      "applicationCategory": "ReferenceApplication",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0"
+      }
+    }
+    </script>
+    <!-- Google Tag Manager -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-T7HFKFX0PR"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-T7HFKFX0PR');
+    </script>
+    <!-- End Google Tag Manager -->
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-4xl font-bold text-center mb-8">קורא התנ"ך העברי</h1>
+        <div class="flex flex-col md:flex-row gap-8">
+            <div class="w-full md:w-1/3">
+                <select id="book" class="w-full p-2 mb-4 bg-white border border-gray-300 rounded-md shadow-sm">
+                    <option value="">בחר ספר</option>
+                </select>
+                <select id="chapter" class="w-full p-2 mb-4 bg-white border border-gray-300 rounded-md shadow-sm">
+                    <option value="">בחר פרק</option>
+                </select>
+            </div>
+            <div id="content" class="w-full md:w-2/3 bg-white p-8 rounded-lg shadow-md text-right"></div>
+        </div>
+    </div>
+
+    <script>
+        const apiUrl = 'https://www.sefaria.org/api/texts/';
+        const bookSelect = document.getElementById('book');
+        const chapterSelect = document.getElementById('chapter');
+        const contentDiv = document.getElementById('content');
+
+        const books = [
+            "בראשית", "שמות", "ויקרא", "במדבר", "דברים", "יהושע", "שופטים", "שמואל א", "שמואל ב",
+            "מלכים א", "מלכים ב", "ישעיהו", "ירמיהו", "יחזקאל", "הושע", "יואל", "עמוס", "עובדיה",
+            "יונה", "מיכה", "נחום", "חבקוק", "צפניה", "חגי", "זכריה", "מלאכי", "תהלים", "משלי",
+            "איוב", "שיר השירים", "רות", "איכה", "קהלת", "אסתר", "דניאל", "עזרא", "נחמיה",
+            "דברי הימים א", "דברי הימים ב"
+        ];
+
+        books.forEach(book => {
+            const option = document.createElement('option');
+            option.value = book;
+            option.textContent = book;
+            bookSelect.appendChild(option);
+        });
+
+        function jsonp(url, callback) {
+            const callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
+            window[callbackName] = function(data) {
+                delete window[callbackName];
+                document.body.removeChild(script);
+                callback(data);
+            };
+
+            const script = document.createElement('script');
+            script.src = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'callback=' + callbackName;
+            document.body.appendChild(script);
+        }
+
+        bookSelect.addEventListener('change', () => {
+            const book = bookSelect.value;
+            if (book) {
+                jsonp(`${apiUrl}${book}?commentary=0&context=0`, (data) => {
+                    const chapterCount = data.lengths[0];
+                    chapterSelect.innerHTML = '<option value="">בחר פרק</option>';
+                    for (let i = 1; i <= chapterCount; i++) {
+                        const option = document.createElement('option');
+                        option.value = i;
+                        option.textContent = i;
+                        chapterSelect.appendChild(option);
+                    }
+                });
+            }
+        });
+
+        chapterSelect.addEventListener('change', () => {
+            const book = bookSelect.value;
+            const chapter = chapterSelect.value;
+            if (book && chapter) {
+                jsonp(`${apiUrl}${book}.${chapter}?commentary=0&context=0`, (data) => {
+                    const verses = data.he;
+                    contentDiv.innerHTML = verses.map((verse, index) => `
+                        <p class="verse mb-4" data-verse="${index + 1}">
+                            <span class="font-bold text-sm text-gray-600 ml-2">${index + 1}</span>
+                            ${verse}
+                        </p>
+                    `).join('');
+
+                    contentDiv.querySelectorAll('.verse').forEach(verse => {
+                        verse.addEventListener('click', () => {
+                            const verseNumber = verse.dataset.verse;
+                            const verseText = verse.textContent.trim();
+                            alert(`פסוק ${verseNumber}: ${verseText}`);
+                        });
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
