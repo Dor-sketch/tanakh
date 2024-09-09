@@ -253,96 +253,85 @@
     <footer>
         <p>נוצר על ידי <a href="https://dorpascal.com" target="_blank" rel="noopener noreferrer">דור פסקל</a></p>
     </footer>
-<!DOCTYPE html>
-<html lang="he" dir="rtl">
-<head>
-    <!-- Previous head content remains the same -->
-</head>
-<body>
-    <!-- Previous body content remains the same -->
 
     <script>
-        const apiUrl = 'https://www.sefaria.org/api/texts/';
+        // Path to the locally stored Bible data
+        const bibleDataUrl = './proxy-server/full_bible.json';
+        let bibleData = {};
+
         const bookSelect = document.getElementById('book');
         const chapterSelect = document.getElementById('chapter');
         const contentDiv = document.getElementById('content');
 
-        const books = [
-            "בראשית", "שמות", "ויקרא", "במדבר", "דברים", "יהושע", "שופטים", "שמואל א", "שמואל ב",
-            "מלכים א", "מלכים ב", "ישעיהו", "ירמיהו", "יחזקאל", "הושע", "יואל", "עמוס", "עובדיה",
-            "יונה", "מיכה", "נחום", "חבקוק", "צפניה", "חגי", "זכריה", "מלאכי", "תהלים", "משלי",
-            "איוב", "שיר השירים", "רות", "איכה", "קהלת", "אסתר", "דניאל", "עזרא", "נחמיה",
-            "דברי הימים א", "דברי הימים ב"
-        ];
-
-        books.forEach(book => {
-            const option = document.createElement('option');
-            option.value = book;
-            option.textContent = book;
-            bookSelect.appendChild(option);
-        });
-
-        async function fetchData(url) {
+        // Function to load the Bible data from the JSON file
+        async function loadBibleData() {
             try {
-                const response = await fetch(url);
+                const response = await fetch(bibleDataUrl);
                 if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                    throw new Error(`Failed to load full_bible.json: ${response.statusText}`);
                 }
-                return await response.json();
+                bibleData = await response.json();
+                populateBooks();
             } catch (error) {
-                console.error('Fetching error:', error);
-                throw error;
+                console.error('Error loading Bible data:', error);
+                contentDiv.innerHTML = '<p class="error">שגיאה בטעינת נתוני התנ"ך. אנא נסה שוב.</p>';
             }
         }
 
-        bookSelect.addEventListener('change', async () => {
-            const book = bookSelect.value;
-            if (book) {
-                contentDiv.innerHTML = '<p class="loading">טוען פרקים...</p>';
-                try {
-                    const data = await fetchData(`${apiUrl}${book}?commentary=0&context=0`);
-                    const chapterCount = data.lengths[0];
-                    chapterSelect.innerHTML = '<option value="">בחר פרק</option>';
-                    for (let i = 1; i <= chapterCount; i++) {
-                        const option = document.createElement('option');
-                        option.value = i;
-                        option.textContent = i;
-                        chapterSelect.appendChild(option);
-                    }
-                    contentDiv.innerHTML = '';
-                } catch (error) {
-                    contentDiv.innerHTML = '<p class="error">שגיאה בטעינת הפרקים. אנא נסה שוב.</p>';
-                }
+        // Populate book select dropdown
+        function populateBooks() {
+            const books = Object.keys(bibleData);
+            bookSelect.innerHTML = '<option value="">בחר ספר</option>';
+            books.forEach(book => {
+                const option = document.createElement('option');
+                option.value = book;
+                option.textContent = book;
+                bookSelect.appendChild(option);
+            });
+        }
+
+        // Populate chapter dropdown based on the selected book
+        bookSelect.addEventListener('change', () => {
+            const selectedBook = bookSelect.value;
+            if (selectedBook && bibleData[selectedBook]) {
+                const chapters = bibleData[selectedBook];
+                chapterSelect.innerHTML = '<option value="">בחר פרק</option>';
+                chapters.forEach((chapter, index) => {
+                    const option = document.createElement('option');
+                    option.value = index + 1;
+                    option.textContent = `פרק ${index + 1}`;
+                    chapterSelect.appendChild(option);
+                });
+                contentDiv.innerHTML = ''; // Clear content when book is changed
             }
         });
 
-        chapterSelect.addEventListener('change', async () => {
-            const book = bookSelect.value;
-            const chapter = chapterSelect.value;
-            if (book && chapter) {
-                contentDiv.innerHTML = '<p class="loading">טוען פסוקים...</p>';
-                try {
-                    const data = await fetchData(`${apiUrl}${book}.${chapter}?commentary=0&context=0`);
-                    const verses = data.he;
-                    contentDiv.innerHTML = verses.map((verse, index) => `
-                        <p class="verse" data-verse="${index + 1}">
-                            <span class="verse-number">${index + 1}</span>
-                            ${verse}
-                        </p>
-                    `).join('');
+        // Display verses for the selected chapter
+        chapterSelect.addEventListener('change', () => {
+            const selectedBook = bookSelect.value;
+            const selectedChapter = chapterSelect.value;
+            if (selectedBook && selectedChapter) {
+                const verses = bibleData[selectedBook][selectedChapter - 1]; // Get the verses for the selected chapter
+                contentDiv.innerHTML = verses.map((verse, index) => `
+                    <p class="verse" data-verse="${index + 1}">
+                        <span class="verse-number">${index + 1}</span>
+                        ${verse}
+                    </p>
+                `).join('');
 
-                    contentDiv.querySelectorAll('.verse').forEach(verse => {
-                        verse.addEventListener('click', () => {
-                            const verseNumber = verse.dataset.verse;
-                            const verseText = verse.textContent.trim();
-                            alert(`פסוק ${verseNumber}: ${verseText}`);
-                        });
+                // Add click event to each verse
+                document.querySelectorAll('.verse').forEach(verse => {
+                    verse.addEventListener('click', () => {
+                        const verseNumber = verse.dataset.verse;
+                        const verseText = verse.textContent.trim();
+                        alert(`פסוק ${verseNumber}: ${verseText}`);
                     });
-                } catch (error) {
-                    contentDiv.innerHTML = '<p class="error">שגיאה בטעינת הפסוקים. אנא נסה שוב.</p>';
-                }
+                });
             }
         });
+
+        // Load the Bible data when the page loads
+        window.addEventListener('DOMContentLoaded', loadBibleData);
     </script>
 </body>
 </html>

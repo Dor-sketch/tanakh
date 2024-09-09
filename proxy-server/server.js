@@ -12,46 +12,108 @@ app.get('/', (req, res) => {
     <h1>Welcome to the Proxy Server</h1>
     <p>Available endpoints:</p>
     <ul>
-      <li><a href="/fetch-and-save">Fetch and Save Data</a></li>
-      <li><a href="/local-data">View Local Data</a></li>
+      <li><a href="/fetch-full-bible">Fetch and Save Full Bible</a></li>
+      <li><a href="/local-full-bible">View Local Full Bible Data</a></li>
     </ul>
   `);
 });
 
-// Fetch and save data endpoint
-app.get('/fetch-and-save', async (req, res) => {
-  try {
-    const apiUrl = 'https://www.sefaria.org/api/texts/בראשית.2?commentary=0&context=0';
-    console.log('Fetching data from:', apiUrl);
-    const response = await fetch(apiUrl);
+const books = [
+  "בראשית", "שמות", "ויקרא", "במדבר", "דברים", "יהושע", "שופטים", "שמואל א", "שמואל ב",
+  "מלכים א", "מלכים ב", "ישעיהו", "ירמיהו", "יחזקאל", "הושע", "יואל", "עמוס", "עובדיה",
+  "יונה", "מיכה", "נחום", "חבקוק", "צפניה", "חגי", "זכריה", "מלאכי", "תהלים", "משלי",
+  "איוב", "שיר השירים", "רות", "איכה", "קהלת", "אסתר", "דניאל", "עזרא", "נחמיה",
+  "דברי הימים א", "דברי הימים ב"
+];
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+async function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// Function to fetch a chapter with retries
+async function fetchChapter(book, chapter, retries = 3) {
+  const chapterUrl = `https://www.sefaria.org/api/texts/${encodeURIComponent(book)}.${chapter}?commentary=0&context=0`;
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      console.log(`Fetching ${book}, chapter ${chapter}: Attempt ${attempt}`);
+      const response = await fetch(chapterUrl, { redirect: 'follow' });
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch chapter ${chapter} of ${book}: ${response.statusText}`);
+      }
+
+      const chapterData = await response.json();
+      if (!chapterData || !chapterData.he) {
+        throw new Error(`Error: Chapter ${chapter} of ${book} has no content`);
+      }
+
+      return chapterData.he; // Return the Hebrew text for the chapter
+    } catch (error) {
+      console.error(`Error fetching chapter ${chapter} of ${book}: ${error.message}`);
+      if (attempt === retries) throw error; // If final attempt fails, throw the error
+    }
+    await delay(1000); // Delay between retries to avoid spamming the server
+  }
+}
+
+// Fetch and save the entire Hebrew Bible
+app.get('/fetch-full-bible', async (req, res) => {
+  try {
+    const fullBible = {};
+
+    for (let book of books) {
+      console.log(`Fetching book: ${book}...`);
+
+      const url = `https://www.sefaria.org/api/texts/${encodeURIComponent(book)}.1?commentary=0&context=0`;
+      const response = await fetch(url, { redirect: 'follow' });
+
+      if (!response.ok) {
+        console.error(`Failed to fetch ${book}: ${response.statusText}`);
+        continue; // Skip this book if it fails
+      }
+
+      const bookData = await response.json();
+      if (!bookData || !bookData.lengths) {
+        console.error(`Error: Couldn't fetch chapter info for ${book}`);
+        continue;
+      }
+
+      const chapterCount = bookData.lengths[0];
+      const bookChapters = [];
+
+      // Fetch each chapter with retries
+      for (let chapter = 1; chapter <= chapterCount; chapter++) {
+        try {
+          const chapterData = await fetchChapter(book, chapter);
+          bookChapters.push(chapterData); // Add chapter to book
+        } catch (error) {
+          console.error(`Skipping chapter ${chapter} of ${book} due to repeated errors`);
+          continue; // Skip this chapter if all retries fail
+        }
+      }
+
+      fullBible[book] = bookChapters;
     }
 
-    const data = await response.json();
-    console.log('Data received:', data);  // Log the data to check if it's fetched
+    // Save the full Bible data locally
+    const dataPath = path.join(process.cwd(), 'full_bible.json');
+    fs.writeFileSync(dataPath, JSON.stringify(fullBible, null, 2));
+    console.log('Full Bible saved to:', dataPath);
 
-    // Save the data locally
-    const dataPath = path.join(process.cwd(), 'data.json');
-    fs.writeFileSync(dataPath, JSON.stringify(data, null, 2));
-    console.log('Data saved to:', dataPath);
-
-    res.send('Data fetched and saved locally!');
+    res.send('Full Hebrew Bible fetched and saved locally!');
   } catch (error) {
-    console.error('Error fetching data:', error.message);  // Log the error message
-    res.status(500).send('Error fetching data');
+    console.error('Error fetching the full Bible:', error.message);
+    res.status(500).send(`Error fetching the full Bible: ${error.message}`);
   }
 });
 
-// Serve locally stored data
-app.get('/local-data', (req, res) => {
-  const dataPath = path.join(process.cwd(), 'data.json');
+app.get('/local-full-bible', (req, res) => {
+  const dataPath = path.join(process.cwd(), 'full_bible.json');
   if (fs.existsSync(dataPath)) {
     const data = fs.readFileSync(dataPath, 'utf-8');
     res.json(JSON.parse(data));
   } else {
-    res.status(404).send('Data not found');
+    res.status(404).send('Full Bible data not found');
   }
 });
 
