@@ -42,6 +42,7 @@
     <link rel="icon" type="image/png" sizes="310x310" href="images/icons/icons8-book-infographic-310.png">
     <link rel="icon" type="image/png" sizes="512x512" href="images/icons/icons8-book-infographic-512.png">
 
+    <meta name="theme-color" content="#2c3e50">
     <!-- Canonical URL -->
     <link rel="canonical" href="https://dorpascal.com/tanakh/">
 
@@ -49,16 +50,157 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;700&display=swap');
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #e67e22;
+            --background-color: #ecf0f1;
+            --text-color: #2c3e50;
+            --verse-hover-color: #f39c12;
+        }
+
         body {
             font-family: 'Frank Ruhl Libre', serif;
-            background-color: #f0e7d8;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            flex-grow: 1;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            font-weight: 700;
+        }
+
+        select {
+            appearance: none;
+            background-color: white;
+            border: 2px solid var(--secondary-color);
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            font-size: 1.1rem;
+            width: 100%;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232c3e50'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: left 0.7rem center;
+            background-size: 1.5em;
+            padding-left: 2.5rem;
+            cursor: pointer;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.3);
+        }
+
+        .content-area {
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            height: 70vh;
+            overflow-y: auto;
+            transition: all 0.3s ease;
+        }
+
         .verse {
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s ease;
+            padding: 0.75rem;
+            border-radius: 0.25rem;
+            margin-bottom: 0.75rem;
+            background-color: rgba(236, 240, 241, 0.5);
         }
+
         .verse:hover {
-            background-color: #e6d8c3;
+            background-color: var(--verse-hover-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .verse-number {
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-left: 0.5rem;
+            font-size: 0.9em;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+
+        footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .content-area {
+                height: 60vh;
+            }
+        }
+
+        /* Scrollbar styling */
+        .content-area::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .content-area::-webkit-scrollbar-track {
+            background: var(--background-color);
+        }
+
+        .content-area::-webkit-scrollbar-thumb {
+            background-color: var(--secondary-color);
+            border-radius: 20px;
+            border: 3px solid var(--background-color);
+        }
+
+        /* Loading animation */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .loading {
+            animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
     </style>
 
@@ -67,7 +209,7 @@
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "קורא התנ"ך העברי | Hebrew Bible Reader",
+      "name": "קורא התנ''ך העברי | Hebrew Bible Reader",
       "url": "https://dorpascal.com/tanakh/",
       "author": {
         "@type": "Person",
@@ -82,6 +224,7 @@
       }
     }
     </script>
+
     <!-- Google Tag Manager -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-T7HFKFX0PR"></script>
     <script>
@@ -90,23 +233,33 @@
         gtag('js', new Date());
         gtag('config', 'G-T7HFKFX0PR');
     </script>
-    <!-- End Google Tag Manager -->
 </head>
-<body class="bg-gray-100">
-    <div class="container mx-auto px-4 py-8">
-        <h1 class="text-4xl font-bold text-center mb-8">קורא התנ"ך העברי</h1>
+<body>
+    <div class="container">
+        <h1>קורא התנ"ך העברי</h1>
         <div class="flex flex-col md:flex-row gap-8">
             <div class="w-full md:w-1/3">
-                <select id="book" class="w-full p-2 mb-4 bg-white border border-gray-300 rounded-md shadow-sm">
+                <select id="book" aria-label="בחר ספר">
                     <option value="">בחר ספר</option>
                 </select>
-                <select id="chapter" class="w-full p-2 mb-4 bg-white border border-gray-300 rounded-md shadow-sm">
+                <select id="chapter" aria-label="בחר פרק">
                     <option value="">בחר פרק</option>
                 </select>
             </div>
-            <div id="content" class="w-full md:w-2/3 bg-white p-8 rounded-lg shadow-md text-right"></div>
+            <div id="content" class="content-area w-full md:w-2/3"></div>
         </div>
     </div>
+
+    <footer>
+        <p>נוצר על ידי <a href="https://dorpascal.com" target="_blank" rel="noopener noreferrer">דור פסקל</a></p>
+    </footer>
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <!-- Previous head content remains the same -->
+</head>
+<body>
+    <!-- Previous body content remains the same -->
 
     <script>
         const apiUrl = 'https://www.sefaria.org/api/texts/';
@@ -129,23 +282,25 @@
             bookSelect.appendChild(option);
         });
 
-        function jsonp(url, callback) {
-            const callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
-            window[callbackName] = function(data) {
-                delete window[callbackName];
-                document.body.removeChild(script);
-                callback(data);
-            };
-
-            const script = document.createElement('script');
-            script.src = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'callback=' + callbackName;
-            document.body.appendChild(script);
+        async function fetchData(url) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return await response.json();
+            } catch (error) {
+                console.error('Fetching error:', error);
+                throw error;
+            }
         }
 
-        bookSelect.addEventListener('change', () => {
+        bookSelect.addEventListener('change', async () => {
             const book = bookSelect.value;
             if (book) {
-                jsonp(`${apiUrl}${book}?commentary=0&context=0`, (data) => {
+                contentDiv.innerHTML = '<p class="loading">טוען פרקים...</p>';
+                try {
+                    const data = await fetchData(`${apiUrl}${book}?commentary=0&context=0`);
                     const chapterCount = data.lengths[0];
                     chapterSelect.innerHTML = '<option value="">בחר פרק</option>';
                     for (let i = 1; i <= chapterCount; i++) {
@@ -154,19 +309,24 @@
                         option.textContent = i;
                         chapterSelect.appendChild(option);
                     }
-                });
+                    contentDiv.innerHTML = '';
+                } catch (error) {
+                    contentDiv.innerHTML = '<p class="error">שגיאה בטעינת הפרקים. אנא נסה שוב.</p>';
+                }
             }
         });
 
-        chapterSelect.addEventListener('change', () => {
+        chapterSelect.addEventListener('change', async () => {
             const book = bookSelect.value;
             const chapter = chapterSelect.value;
             if (book && chapter) {
-                jsonp(`${apiUrl}${book}.${chapter}?commentary=0&context=0`, (data) => {
+                contentDiv.innerHTML = '<p class="loading">טוען פסוקים...</p>';
+                try {
+                    const data = await fetchData(`${apiUrl}${book}.${chapter}?commentary=0&context=0`);
                     const verses = data.he;
                     contentDiv.innerHTML = verses.map((verse, index) => `
-                        <p class="verse mb-4" data-verse="${index + 1}">
-                            <span class="font-bold text-sm text-gray-600 ml-2">${index + 1}</span>
+                        <p class="verse" data-verse="${index + 1}">
+                            <span class="verse-number">${index + 1}</span>
                             ${verse}
                         </p>
                     `).join('');
@@ -178,7 +338,9 @@
                             alert(`פסוק ${verseNumber}: ${verseText}`);
                         });
                     });
-                });
+                } catch (error) {
+                    contentDiv.innerHTML = '<p class="error">שגיאה בטעינת הפסוקים. אנא נסה שוב.</p>';
+                }
             }
         });
     </script>
