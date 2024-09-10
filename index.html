@@ -244,6 +244,20 @@
             position: relative;
         }
 
+        .modal-content h2 {
+            margin-bottom: 1rem;
+        }
+
+        .modal-content p {
+            margin-bottom: 1rem;
+        }
+
+        .modal-content a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
         .close-modal {
             position: absolute;
             top: 1rem;
@@ -338,6 +352,7 @@
             <input type="text" id="search" placeholder="חפש בתנ״ך" aria-label="חפש בתנ״ך" />
             <button id="searchButton">חפש</button>
             <button id="helpBtn">עזרה</button>
+            <button id="aboutBtn">אודות</button>
         </div>
         <div class="controls">
             <button id="prevChapter">פרק קודם</button>
@@ -364,6 +379,18 @@
         </div>
     </div>
 
+    <!--- About Modal -->
+    <div id="aboutModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeAboutModal">&times;</button>
+            <h2>אודות</h2>
+            <p>תנ״ך מכוון פותח ללא מטרת רווח במטרה להנגיש את התנ"ך לקהל הרחב באופן נוח וקל לשימוש.</p>
+            <p>התוכנה עובדת על אלגוריתים שפותחו עצמאית, ומתבססת על מידע מפרויקט <a href="https://www.sefaria.org.il/texts" target="_blank" rel="noopener noreferrer">ספריא</a>.</p>
+            <p>הקוד המקורי זמין ב-<a href="https://github.com/Dor-sketch/tanakh" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
+            <p>ככל שמישהו מוצא טעות או שיש לו דברים בנושא הוא מוזמן לפנות אלינו בכתובת המייל <a href="mailto:dor@dorpascal.com" target="_blank" rel="noopener noreferrer">tanakh@dorpascal.com</a></p>
+        </div>
+    </div>
+
 <script>
     const bibleDataUrl = './proxy-server/full_bible.json';
     let bibleData = {};
@@ -379,6 +406,8 @@
     const helpModal = document.getElementById('helpModal');
     const helpBtn = document.getElementById('helpBtn');
     const closeHelpModal = document.getElementById('closeHelpModal');
+    const aboutModal = document.getElementById('aboutModal');
+    const aboutBtn = document.getElementById('aboutBtn');
 
     // Function to load Bible data from JSON file
     async function loadBibleData() {
@@ -519,6 +548,16 @@
     // Close help modal
     closeHelpModal.addEventListener('click', () => {
         helpModal.style.display = 'none';
+    });
+
+    // Show about modal
+    aboutBtn.addEventListener('click', () => {
+        aboutModal.style.display = 'flex';
+    });
+
+    // Close about modal
+    closeAboutModal.addEventListener('click', () => {
+        aboutModal.style.display = 'none';
     });
 
     // Load the last visit or default to בראשית, פרק 1
