@@ -388,7 +388,19 @@
             .button-text {
                 display: none;
             }
+
+            .controls {
+                margin-bottom: 0;
+                justify-content: space-between;
+            }
         }
+
+        #prevNext {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
 
     </style>
     <!-- Schema.org markup for Google -->
@@ -449,7 +461,7 @@
     </svg>
     <span class="button-text">אודות</span>
 </button>
-
+<div id="prevNext">
 <button id="prevChapter">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M8.59 16.59L10 18L16 12L10 6L8.59 7.41L13.17 12L8.59 16.59Z" fill="currentColor"/>
@@ -462,6 +474,7 @@
         <path d="M15.41 7.41L14 6L8 12L14 18L15.41 16.59L10.83 12L15.41 7.41Z" fill="currentColor"/>
     </svg>
 </button>
+</div>
         </div>
     </div>
     <div class="container">
@@ -518,10 +531,11 @@
     const toggleNumberingBtn = document.createElement('button');
     toggleNumberingBtn.textContent = useHebrewNumbering ? 'מספרים רגילים' : 'מספור עברי';
     toggleNumberingBtn.id = 'toggleNumbering';
+    const prevNext = document.getElementById('prevNext');
+    const parent = prevNext.parentNode;
 
-    // append it before the prevChapterBtn
-    prevChapterBtn.parentNode.insertBefore(toggleNumberingBtn, prevChapterBtn);
-
+    // append it before the prevNext div
+    parent.insertBefore(toggleNumberingBtn, prevNext);
     // Function to load Bible data from JSON file
     async function loadBibleData() {
         try {
