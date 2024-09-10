@@ -78,11 +78,12 @@
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
             color: white;
             position: sticky;
             top: 0;
             z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .header .controls {
@@ -117,6 +118,16 @@
 
         .header button:hover {
             background-color: darkorange;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            padding: 2rem;
+            overflow-y: auto;
+            margin: 0 auto;
+            max-width: 800px;
         }
 
         .content-area {
@@ -260,13 +271,74 @@
 
         .close-modal {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
+            top: 0;
+            right: 0;
             background: none;
             border: none;
-            font-size: 1.5rem;
+            font-size: 1rem;
             cursor: pointer;
             color: var(--primary-color);
+        }
+        #toggleNumbering {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            width: 108px;
+            padding: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #toggleNumbering:hover {
+            background-color: darkorange;
+        }
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        select, input[type="text"], button {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+        button {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button svg {
+            fill: white;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #nextChapter, #prevChapter {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+        }
+
+        #nextChapter svg, #prevChapter svg {
+            fill: white;
+        }
+
+        #nextChapter:hover, #prevChapter:hover {
+            background-color: #0056b3;
         }
 
         /* Loading animation */
@@ -279,17 +351,22 @@
         }
 
         @media screen and (max-width: 768px) {
+
+            .container {
+                padding: 1rem;
+            }
+
+            .header select, .header input {
+                padding: 0.5rem;
+            }
+
             .modal-content {
                 padding: 1.5rem;
             }
 
-            .close-modal {
-                top: 0rem;
-                right: 0.5rem;
-            }
-
             .header button {
                 padding: 0.5rem 1rem;
+                height: 40px;
             }
 
             .verse {
@@ -308,7 +385,11 @@
                 font-size: 0.9rem;
             }
 
+            .button-text {
+                display: none;
+            }
         }
+
     </style>
     <!-- Schema.org markup for Google -->
     <script type="application/ld+json">
@@ -350,16 +431,39 @@
                 <option value="">בחר פרק</option>
             </select>
             <input type="text" id="search" placeholder="חפש בתנ״ך" aria-label="חפש בתנ״ך" />
-            <button id="searchButton">חפש</button>
-            <button id="helpBtn">עזרה</button>
-            <button id="aboutBtn">אודות</button>
-        </div>
-        <div class="controls">
-            <button id="prevChapter">פרק קודם</button>
-            <button id="nextChapter">פרק הבא</button>
+           <button id="searchButton">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 2C5.58 2 2 5.58 2 10C2 14.42 5.58 18 10 18C11.85 18 13.55 17.35 14.88 16.24L20.29 21.65C20.68 22.04 21.31 22.04 21.7 21.65C22.09 21.26 22.09 20.63 21.7 20.24L16.29 14.83C17.35 13.55 18 11.85 18 10C18 5.58 14.42 2 10 2ZM10 4C13.31 4 16 6.69 16 10C16 13.31 13.31 16 10 16C6.69 16 4 13.31 4 10C4 6.69 6.69 4 10 4Z" fill="currentColor"/>
+    </svg>
+    <span class="button-text">חפש</span>
+</button>
+<button id="helpBtn">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM11 17H13V15H11V17ZM11 13H13V7H11V13Z" fill="currentColor"/>
+    </svg>
+    <span class="button-text">עזרה</span>
+</button>
+<button id="aboutBtn">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 5.5C13.1 5.5 14 6.4 14 7.5C14 8.6 13.1 9.5 12 9.5C10.9 9.5 10 8.6 10 7.5C10 6.4 10.9 5.5 12 5.5ZM11 11H13V17H11V11Z" fill="currentColor"/>
+    </svg>
+    <span class="button-text">אודות</span>
+</button>
+
+<button id="prevChapter">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8.59 16.59L10 18L16 12L10 6L8.59 7.41L13.17 12L8.59 16.59Z" fill="currentColor"/>
+    </svg>
+    <span class="button-text">פרק קודם</span>
+</button>
+<button id="nextChapter">
+    <span class="button-text">פרק הבא</span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15.41 7.41L14 6L8 12L14 18L15.41 16.59L10.83 12L15.41 7.41Z" fill="currentColor"/>
+    </svg>
+</button>
         </div>
     </div>
-
     <div class="container">
         <div id="content" class="content-area w-full"></div>
     </div>
@@ -412,9 +516,11 @@
 
     // Create toggle button for numbering system
     const toggleNumberingBtn = document.createElement('button');
-    toggleNumberingBtn.textContent = useHebrewNumbering ? 'עבור למספרים רגילים' : 'עבור למספור עברי';
+    toggleNumberingBtn.textContent = useHebrewNumbering ? 'מספרים רגילים' : 'מספור עברי';
     toggleNumberingBtn.id = 'toggleNumbering';
-    document.querySelector('.controls').appendChild(toggleNumberingBtn);
+
+    // append it before the prevChapterBtn
+    prevChapterBtn.parentNode.insertBefore(toggleNumberingBtn, prevChapterBtn);
 
     // Function to load Bible data from JSON file
     async function loadBibleData() {
@@ -596,7 +702,7 @@
     toggleNumberingBtn.addEventListener('click', () => {
         useHebrewNumbering = !useHebrewNumbering;
         localStorage.setItem('useHebrewNumbering', JSON.stringify(useHebrewNumbering));
-        toggleNumberingBtn.textContent = useHebrewNumbering ? 'עבור למספרים רגילים' : 'עבור למספור עברי';
+        toggleNumberingBtn.textContent = useHebrewNumbering ? 'מספרים רגילים' : 'מספור עברי';
         populateChapters(bookSelect.value);
         loadChapterContent(bookSelect.value, chapterSelect.value);
     });
