@@ -658,6 +658,12 @@
         if (currentChapter < bibleData[bookSelect.value].length) {
             chapterSelect.value = currentChapter + 1;
             loadChapterContent(bookSelect.value, currentChapter + 1);
+
+            // Scroll to the top of the page with a smooth effect
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         }
     });
 
