@@ -385,7 +385,7 @@
             <button class="close-modal" id="closeAboutModal">&times;</button>
             <h2>אודות</h2>
             <p>תנ״ך מכוון פותח ללא מטרת רווח במטרה להנגיש את התנ"ך לקהל הרחב באופן נוח וקל לשימוש.</p>
-            <p>התוכנה עובדת על אלגוריתים שפותחו עצמאית, ומתבססת על מידע מפרויקט <a href="https://www.sefaria.org.il/texts" target="_blank" rel="noopener noreferrer">ספריא</a>.</p>
+            <p>התוכנה עובדת בעזרת אלגוריתים שפותחו עצמאית, ומתבססת על מידע מפרויקט <a href="https://www.sefaria.org.il/texts" target="_blank" rel="noopener noreferrer">ספריא</a>.</p>
             <p>הקוד המקורי זמין ב-<a href="https://github.com/Dor-sketch/tanakh" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
             <p>ככל שמישהו מוצא טעות או שיש לו דברים בנושא הוא מוזמן לפנות אלינו בכתובת המייל <a href="mailto:tanakh@dorpascal.com" target="_blank" rel="noopener noreferrer">tanakh@dorpascal.com</a></p>
         </div>
@@ -395,6 +395,7 @@
     const bibleDataUrl = './proxy-server/full_bible.json';
     let bibleData = {};
     let lastVisit = JSON.parse(localStorage.getItem('lastVisit')) || { book: 'בראשית', chapter: 1 };
+    let useHebrewNumbering = JSON.parse(localStorage.getItem('useHebrewNumbering') || 'true');
 
     const bookSelect = document.getElementById('book');
     const chapterSelect = document.getElementById('chapter');
@@ -408,6 +409,12 @@
     const closeHelpModal = document.getElementById('closeHelpModal');
     const aboutModal = document.getElementById('aboutModal');
     const aboutBtn = document.getElementById('aboutBtn');
+
+    // Create toggle button for numbering system
+    const toggleNumberingBtn = document.createElement('button');
+    toggleNumberingBtn.textContent = useHebrewNumbering ? 'עבור למספרים רגילים' : 'עבור למספור עברי';
+    toggleNumberingBtn.id = 'toggleNumbering';
+    document.querySelector('.controls').appendChild(toggleNumberingBtn);
 
     // Function to load Bible data from JSON file
     async function loadBibleData() {
@@ -445,10 +452,55 @@
         chapters.forEach((_, index) => {
             const option = document.createElement('option');
             option.value = index + 1;
-            option.textContent = `פרק ${index + 1}`;
+            option.textContent = `פרק ${formatNumber(index + 1)}`;
             chapterSelect.appendChild(option);
         });
         chapterSelect.value = lastVisit.chapter;
+    }
+
+    // Function to convert number to Hebrew letters with correct quotation placement
+    function numberToHebrewLetters(num) {
+        const hebChars = "אבגדהוזחטיכלמנסעפצקרשת";
+        const hebTens = "יכלמנסעפצ";
+        let result = "";
+
+        if (num >= 1000) {
+            result = numberToHebrewLetters(Math.floor(num / 1000)) + "'";
+            num %= 1000;
+        }
+
+        if (num >= 100) {
+            result += hebChars[Math.floor(num / 100) - 1];
+            num %= 100;
+        }
+
+        if (num >= 10) {
+            result += hebTens[Math.floor(num / 10) - 1];
+            num %= 10;
+        }
+
+        if (num > 0) {
+            result += hebChars[num - 1];
+        }
+
+        // Special cases for 15 and 16
+        result = result.replace('יה', 'טו').replace('יו', 'טז');
+
+        // Insert quotation mark between characters for numbers 11-99
+        if (result.length === 2) {
+            result = result[0] + '"' + result[1];
+        } else if (result.length > 2) {
+            result += '"';
+        } else {
+            result += "'";
+        }
+
+        return result;
+    }
+
+    // Function to format number based on current numbering system
+    function formatNumber(num) {
+        return useHebrewNumbering ? numberToHebrewLetters(num) : num.toString();
     }
 
     // Load content for selected book and chapter
@@ -456,7 +508,7 @@
         const verses = bibleData[book][chapter - 1];
         contentDiv.innerHTML = verses.map((verse, index) => `
             <p class="verse" data-verse="${index + 1}">
-                <span class="verse-number">${index + 1}</span>
+                <span class="verse-number">${formatNumber(index + 1)}</span>
                 ${verse}
             </p>
         `).join('');
@@ -500,7 +552,7 @@
         }
     });
 
-    // Search functionality (only after the user clicks the search button or presses "Enter")
+    // Search functionality
     searchButton.addEventListener('click', performSearch);
     searchInput.addEventListener('keypress', event => {
         if (event.key === 'Enter') {
@@ -512,8 +564,8 @@
         const query = searchInput.value.trim();
         if (!query) return;
 
-        const regex = new RegExp(removeNikud(query), 'gi'); // Create a regex from the query, removing Nikud
-        contentDiv.innerHTML = ''; // Clear content for search results
+        const regex = new RegExp(removeNikud(query), 'gi');
+        contentDiv.innerHTML = '';
 
         Object.keys(bibleData).forEach(book => {
             bibleData[book].forEach((chapter, chapterIndex) => {
@@ -521,7 +573,7 @@
                     if (regex.test(removeNikud(verse))) {
                         contentDiv.innerHTML += `
                             <p class="verse">
-                                <span class="verse-number">(${book} ${chapterIndex + 1}:${verseIndex + 1})</span>
+                                <span class="verse-number">(${book} ${formatNumber(chapterIndex + 1)}:${formatNumber(verseIndex + 1)})</span>
                                 ${verse.replace(regex, match => `<span class="highlight">${match}</span>`)}
                             </p>
                         `;
@@ -539,6 +591,15 @@
     function removeNikud(text) {
         return text.replace(/[\u0591-\u05C7]/g, "");  // Unicode range for Hebrew Nikud
     }
+
+    // Toggle numbering system
+    toggleNumberingBtn.addEventListener('click', () => {
+        useHebrewNumbering = !useHebrewNumbering;
+        localStorage.setItem('useHebrewNumbering', JSON.stringify(useHebrewNumbering));
+        toggleNumberingBtn.textContent = useHebrewNumbering ? 'עבור למספרים רגילים' : 'עבור למספור עברי';
+        populateChapters(bookSelect.value);
+        loadChapterContent(bookSelect.value, chapterSelect.value);
+    });
 
     // Show help modal
     helpBtn.addEventListener('click', () => {
