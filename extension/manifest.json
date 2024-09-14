@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "__MSG_extensionName__",
+  "version": "1.0",
+  "description": "__MSG_extensionDescription__",
+  "default_locale": "he",
+  "icons": {
+      "16": "images/icons/icons8-bible-16.png",
+      "47": "images/icons/icons8-bible-47.png",
+      "48": "images/icons/icons8-bible-48.png",
+      "128": "images/icons/icons8-bible-128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "images/icons/icons8-bible-16.png",
+      "47": "images/icons/icons8-bible-47.png",
+      "48": "images/icons/icons8-bible-48.png",
+      "128": "images/icons/icons8-bible-128.png"
+    }
+  },
+  "permissions": [
+    "storage"
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>__MSG_extensionName__</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="header">
+        <div class="controls">
+            <select id="book" aria-label="__MSG_selectBook__">
+                <option value="">__MSG_selectBook__</option>
+            </select>
+            <select id="chapter" aria-label="__MSG_selectChapter__">
+                <option value="">__MSG_selectChapter__</option>
+            </select>
+            <input type="text" id="search" placeholder="__MSG_search__" aria-label="__MSG_search__" />
+            <button id="searchButton">__MSG_searchButton__</button>
+            <button id="helpBtn">__MSG_helpButton__</button>
+            <button id="aboutBtn">__MSG_aboutButton__</button>
+            <div id="prevNext">
+                <button id="prevChapter">__MSG_prevChapter__</button>
+                <button id="nextChapter">__MSG_nextChapter__</button>
+            </div>
+            <button id="toggleNumbering">__MSG_toggleNumbering__</button>
+        </div>
+    </div>
+    <div class="container">
+        <div id="content" class="content-area w-full"></div>
+    </div>
+
+    <div id="helpModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeHelpModal">&times;</button>
+            <h2 id="helpTitle"></h2>
+            <p id="helpContent"></p>
+        </div>
+    </div>
+
+    <div id="aboutModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeAboutModal">&times;</button>
+            <h2 id="aboutTitle"></h2>
+            <p id="aboutContent"></p>
+        </div>
+    </div>
+    </div>
+
+    <script src="popup.js" type="module"></script>
+</body>
+</html>

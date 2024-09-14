@@ -1,0 +1,50 @@
+{
+  "extensionName": {
+    "message": "Hebrew Bible Reader",
+    "description": "The name of the extension"
+  },
+  "extensionDescription": {
+    "message": "An interactive Hebrew Bible reader allowing users to select books, chapters, and read verses in Hebrew.",
+    "description": "The description of the extension"
+  },
+  "selectBook": {
+    "message": "Select Book",
+    "description": "Prompt to select a book"
+  },
+  "selectChapter": {
+    "message": "Select Chapter",
+    "description": "Prompt to select a chapter"
+  },
+  "search": {
+    "message": "Search the Bible",
+    "description": "Placeholder for search input"
+  },
+  "searchButton": {
+    "message": "Search",
+    "description": "Text for search button"
+  },
+  "helpButton": {
+    "message": "Help",
+    "description": "Text for help button"
+  },
+  "aboutButton": {
+    "message": "About",
+    "description": "Text for about button"
+  },
+  "prevChapter": {
+    "message": "Previous Chapter",
+    "description": "Text for previous chapter button"
+  },
+  "nextChapter": {
+    "message": "Next Chapter",
+    "description": "Text for next chapter button"
+  },
+  "useRegularNumbers": {
+    "message": "Use Regular Numbers",
+    "description": "Text for toggle when using Hebrew numbering"
+  },
+  "useHebrewNumbering": {
+    "message": "Use Hebrew Numbering",
+    "description": "Text for toggle when using regular numbering"
+  }
+}

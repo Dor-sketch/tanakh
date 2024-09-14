@@ -1,0 +1,70 @@
+{
+  "extensionName": {
+    "message": "תנ״ך מקוון",
+    "description": "The name of the extension"
+  },
+  "extensionDescription": {
+    "message": "קורא תנ״ך אינטראקטיבי המאפשר למשתמשים לבחור ספרים, פרקים ולקרוא פסוקים בעברית.",
+    "description": "The description of the extension"
+  },
+  "selectBook": {
+    "message": "בחר ספר",
+    "description": "Prompt to select a book"
+  },
+  "selectChapter": {
+    "message": "בחר פרק",
+    "description": "Prompt to select a chapter"
+  },
+  "search": {
+    "message": "חפש בתנ״ך",
+    "description": "Placeholder for search input"
+  },
+  "searchButton": {
+    "message": "חפש",
+    "description": "Text for search button"
+  },
+  "helpButton": {
+    "message": "עזרה",
+    "description": "Text for help button"
+  },
+  "aboutButton": {
+    "message": "אודות",
+    "description": "Text for about button"
+  },
+  "prevChapter": {
+    "message": "פרק קודם",
+    "description": "Text for previous chapter button"
+  },
+  "nextChapter": {
+    "message": "פרק הבא",
+    "description": "Text for next chapter button"
+  },
+  "toggleNumbering": {
+    "message": "החלף מספור",
+    "description": "Text for toggle numbering button"
+  },
+    "helpTitle": {
+    "message": "עזרה",
+    "description": "Title for the help modal"
+  },
+  "helpContent": {
+    "message": "זהו תוכן עזרה. כאן תוכל להסביר כיצד להשתמש בהרחבה.",
+    "description": "Content for the help modal"
+  },
+  "aboutTitle": {
+    "message": "אודות",
+    "description": "Title for the about modal"
+  },
+  "aboutContent": {
+    "message": "זוהי הרחבה לקריאת התנ\"ך. פותחה על ידי [שמך].",
+    "description": "Content for the about modal"
+  },
+  "useRegularNumbers": {
+    "message": "השתמש במספרים רגילים",
+    "description": "Text for toggle when using Hebrew numbering"
+  },
+  "useHebrewNumbering": {
+    "message": "השתמש במספור עברי",
+    "description": "Text for toggle when using regular numbering"
+  }
+}
