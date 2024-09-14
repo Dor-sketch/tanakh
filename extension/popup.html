@@ -9,42 +9,51 @@
 <body>
     <div class="header">
         <div class="controls">
-            <select id="book" aria-label="__MSG_selectBook__">
-                <option value="">__MSG_selectBook__</option>
-            </select>
-            <select id="chapter" aria-label="__MSG_selectChapter__">
-                <option value="">__MSG_selectChapter__</option>
-            </select>
-            <input type="text" id="search" placeholder="__MSG_search__" aria-label="__MSG_search__" />
-            <button id="searchButton">__MSG_searchButton__</button>
-            <button id="helpBtn">__MSG_helpButton__</button>
-            <button id="aboutBtn">__MSG_aboutButton__</button>
-            <div id="prevNext">
-                <button id="prevChapter">__MSG_prevChapter__</button>
-                <button id="nextChapter">__MSG_nextChapter__</button>
+            <div class="select-wrapper">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>
+                </svg>
+                <select id="book" aria-label="__MSG_selectBook__">
+                    <option value="">__MSG_selectBook__</option>
+                </select>
             </div>
-            <button id="toggleNumbering">__MSG_toggleNumbering__</button>
+            <div class="select-wrapper">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M2 17h2v.5H3v1h1v.5H2v1h3v-4H2v1zm1-9h1V4H2v1h1v3zm-1 3h1.8L2 13.1v.9h3v-1H3.2L5 10.9V10H2v1zm5-6v2h14V5H7zm0 14h14v-2H7v2zm0-6h14v-2H7v2z"/>
+                </svg>
+                <select id="chapter" aria-label="__MSG_selectChapter__">
+                    <option value="">__MSG_selectChapter__</option>
+                </select>
+            </div>
+            <div class="search-wrapper">
+                <input type="text" id="search" placeholder="__MSG_search__" aria-label="__MSG_search__" />
+                <button id="searchButton" aria-label="__MSG_searchButton__">
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                    </svg>
+                </button>
+            </div>
+            <button id="toggleNumbering" aria-label="__MSG_toggleNumbering__">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/>
+                </svg>
+            </button>
+            <div id="prevNext">
+                <button id="prevChapter" aria-label="__MSG_prevChapter__">
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                    </svg>
+                </button>
+                <button id="nextChapter" aria-label="__MSG_nextChapter__">
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                    </svg>
+                </button>
+            </div>
         </div>
     </div>
     <div class="container">
         <div id="content" class="content-area w-full"></div>
-    </div>
-
-    <div id="helpModal" class="modal">
-        <div class="modal-content">
-            <button class="close-modal" id="closeHelpModal">&times;</button>
-            <h2 id="helpTitle"></h2>
-            <p id="helpContent"></p>
-        </div>
-    </div>
-
-    <div id="aboutModal" class="modal">
-        <div class="modal-content">
-            <button class="close-modal" id="closeAboutModal">&times;</button>
-            <h2 id="aboutTitle"></h2>
-            <p id="aboutContent"></p>
-        </div>
-    </div>
     </div>
 
     <script src="popup.js" type="module"></script>
