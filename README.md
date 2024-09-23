@@ -1,5 +1,15 @@
 # Hebrew Bible Reader - תנ״ך אונליין
 
+![Hebrew Bible Reader](https://dorpascal.com/tanakh/images/marquee_promo_tile.jpg)
+
+[![GitHub license](https://img.shields.io/github/license/Dor-sketch/tanakh.svg)](https://github.com/Dor-sketch/tanakh/blob/master/LICENSE)
+
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/v/jkadmhnjhehekcgcajgnjjiehiefndcd.svg)](https://chrome.google.com/webstore/detail/jkadmhnjhehekcgcajgnjjiehiefndcd)
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/users/jkadmhnjhehekcgcajgnjjiehiefndcd.svg)](https://chrome.google.com/webstore/detail/jkadmhnjhehekcgcajgnjjiehiefndcd)
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/stars/jkadmhnjhehekcgcajgnjjiehiefndcd.svg)](https://chrome.google.com/webstore/detail/jkadmhnjhehekcgcajgnjjiehiefndcd)
+
+[![GitHub issues](https://img.shields.io/github/issues/Dor-sketch/tanakh.svg)](https://github.com/Dor-sketch/tanakh/issues)
+
 A simple, lightweight web application for reading the Hebrew Bible (Tanakh) online. This project uses HTML, JavaScript, and CSS to create an interactive interface for selecting and reading biblical texts in Hebrew.
 
 ## Features
