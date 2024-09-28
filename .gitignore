@@ -1,3 +1,4 @@
 .DS_Store
 /proxy-server/node_modules
+/app
 *.zip
