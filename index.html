@@ -260,6 +260,12 @@
             position: relative;
         }
 
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
         .modal-content h2 {
             margin-bottom: 1rem;
         }
@@ -277,12 +283,23 @@
         .close-modal {
             position: absolute;
             top: 0;
-            right: 0;
+            left: 0;
             background: none;
             border: none;
             font-size: 1rem;
             cursor: pointer;
             color: var(--primary-color);
+            padding: 8px 16px;
+            font-size: large;
+            border-radius: 7px;
+        }
+
+        .close-modal:hover {
+            color: var(--accent-color);
+        }
+
+        .close-modal:focus {
+            outline: none;
         }
         #toggleNumbering {
             background-color: var(--accent-color);
@@ -548,15 +565,15 @@
     <span class="button-text">חפש</span>
 </button>
 <button id="helpBtn">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM11 17H13V15H11V17ZM11 13H13V7H11V13Z" fill="currentColor"/>
-    </svg>
+<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="16" height="16" viewBox="0 0 30 30">
+    <path d="M 15.089844 3 C 10.131844 3 7.3202344 5.7778281 7.2402344 9.7988281 L 7.2402344 10 L 11.617188 10 L 11.617188 9.7988281 C 11.713187 8.0228281 12.941828 6.8769531 14.798828 6.8769531 C 16.639828 6.8769531 17.867188 7.9413594 17.867188 9.4433594 C 17.867188 10.945359 17.237297 11.720844 15.154297 12.964844 C 12.925297 14.272844 12.036094 15.726547 12.246094 18.310547 L 12.271484 19 L 16.558594 19 L 16.558594 18.34375 C 16.558594 16.79375 17.156688 16.000812 19.304688 14.757812 C 21.581688 13.416813 22.759766 11.721828 22.759766 9.2988281 C 22.759766 5.5678281 19.708844 3 15.089844 3 z M 14.507812 22 C 12.864813 22 11.839844 22.953813 11.839844 24.507812 C 11.839844 26.047813 12.865813 27 14.507812 27 C 16.149812 27 17.162109 26.047812 17.162109 24.507812 C 17.162109 22.953813 16.150813 22 14.507812 22 z"></path>
+</svg>
     <span class="button-text">עזרה</span>
 </button>
 <button id="aboutBtn">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 5.5C13.1 5.5 14 6.4 14 7.5C14 8.6 13.1 9.5 12 9.5C10.9 9.5 10 8.6 10 7.5C10 6.4 10.9 5.5 12 5.5ZM11 11H13V17H11V11Z" fill="currentColor"/>
-    </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="16" height="16" viewBox="0 0 24 24">
+    <path d="M 12 2 C 10.343 2 9 3.343 9 5 C 9 6.657 10.343 8 12 8 C 13.657 8 15 6.657 15 5 C 15 3.343 13.657 2 12 2 z M 9 10 A 1.0001 1.0001 0 1 0 9 12 L 10 12 L 10 20 L 9 20 A 1.0001 1.0001 0 1 0 9 22 L 15 22 A 1.0001 1.0001 0 1 0 15 20 L 14 20 L 14 11 C 14 10.448 13.552 10 13 10 L 11 10 L 9 10 z"></path>
+</svg>
     <span class="button-text">אודות</span>
 </button>
 <div id="prevNext">
@@ -599,10 +616,20 @@
         <div class="modal-content">
             <button class="close-modal" id="closeAboutModal">&times;</button>
             <h2>אודות</h2>
-            <p>תנ״ך מכוון פותח ללא מטרת רווח במטרה להנגיש את התנ"ך לקהל הרחב באופן נוח וקל לשימוש.</p>
+            <p>תנ״ך מכוון פותח ללא מטרת רווח במטרה להנגיש את התנ"ך לקהל הרחב באופן נוח וקל לשימוש. התוכנה מאפשרת לקרוא פסוקים בעברית, לחפש בתנ"ך ולנווט בין פרקים. התוכנה לא אוספת מידע אישי על משתמשים, והפרטים שדרושים לעבודה שלה נשמרים באופן מקומי אך ורק אצל המשתמשים. לפרטים נוספים ראה <a href="https://dorpascal.com/tanakh/privacy-policy">מדיניות פרטיות</a>.</p>
+            <p>מה עוד אנחנו מציעים?</p>
+            <ul>
+            <li>
             <p>התוכנה עובדת בעזרת אלגוריתים שפותחו עצמאית, ומתבססת על מידע מפרויקט <a href="https://www.sefaria.org.il/texts" target="_blank" rel="noopener noreferrer">ספריא</a>.</p>
+            </li>
+            <li>
             <p>הקוד המקורי זמין ב-<a href="https://github.com/Dor-sketch/tanakh" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
-            <p>ככל שמישהו מוצא טעות או שיש לו דברים בנושא הוא מוזמן לפנות אלינו בכתובת המייל <a href="mailto:tanakh@dorpascal.com" target="_blank" rel="noopener noreferrer">tanakh@dorpascal.com</a></p>
+            </li>
+            <li>
+            <p>התנ״ך זמין גם כתוסף לדפדפנים המובילים: <a href="https://chrome.google.com/webstore/detail/%D7%AA%D7%A0%D7%B4%D7%9A-%D7%9E%D7%A7%D7%95%D7%95%D7%9F/jkadmhnjhehekcgcajgnjjiehiefndcd" target="_blank" rel="noopener noreferrer">Chrome</a>, <a href="https://microsoftedge.microsoft.com/addons/detail/jomipflbgdbembbimeakhcppbfiphahn" target="_blank" rel="noopener noreferrer">Edge</a>.</p>
+            </li>
+            </ul>
+            <p>ככל שמישהו מוצא טעות או שיש לו דברים לכתוב לנו הוא מוזמן לפנות אלינו בכתובת המייל <a href="mailto:tanakh@dorpascal.com" target="_blank" rel="noopener noreferrer">tanakh@dorpascal.com</a></p>
         </div>
     </div>
 
