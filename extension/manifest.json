@@ -4,6 +4,7 @@
   "version": "1.0",
   "description": "__MSG_extensionDescription__",
   "default_locale": "he",
+  "author": "Dor Pascal",
   "icons": {
       "16": "images/icons/icons8-bible-16.png",
       "47": "images/icons/icons8-bible-47.png",
@@ -24,5 +25,10 @@
   ],
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self'"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "tanakh@dorpascal.com"
+    }
   }
 }

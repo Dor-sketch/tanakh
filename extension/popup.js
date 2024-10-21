@@ -12,7 +12,7 @@ const nextChapterBtn = document.getElementById('nextChapter');
 const toggleNumberingBtn = document.getElementById('toggleNumbering');
 
 // Fetch the bible.json file and parse it
-fetch(chrome.runtime.getURL('bible.json'))
+fetch(chrome.runtime.getURL('bible.JSON'))
     .then(response => response.json())
     .then(data => {
         bibleData = data;
