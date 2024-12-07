@@ -52,18 +52,18 @@ def get_navigation_urls(bible_data, current_book, current_chapter):
 
     # Previous chapter
     if current_chapter > 1:
-        prev_url = f"/tanakh/{quote(current_book)}/{current_chapter - 1}"
+        prev_url = f"/tanakh/{quote(current_book)}/chapter_{current_chapter - 1}"
     elif current_book_index > 0:
         prev_book = books[current_book_index - 1]
         prev_chapter = len(bible_data[prev_book])
-        prev_url = f"/tanakh/{quote(prev_book)}/{prev_chapter}"
+        prev_url = f"/tanakh/{quote(prev_book)}/chapter_{prev_chapter}"
 
     # Next chapter
     if current_chapter < total_chapters:
-        next_url = f"/tanakh/{quote(current_book)}/{current_chapter + 1}"
+        next_url = f"/tanakh/{quote(current_book)}/chapter_{current_chapter + 1}"
     elif current_book_index < len(books) - 1:
         next_book = books[current_book_index + 1]
-        next_url = f"/tanakh/{quote(next_book)}/1"
+        next_url = f"/tanakh/{quote(next_book)}/chapter_1"
 
     return prev_url, next_url
 
@@ -238,6 +238,4 @@ def main():
     print(f'- robots.txt')
 
 if __name__ == '__main__':
-    bible_data = load_bible_data('./docs/assets/full_bible.json')
-    output_dir = './docs'
-    generate_sitemap(bible_data, output_dir)
+    main()
