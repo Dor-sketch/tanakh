@@ -171,7 +171,7 @@ def generate_book_index_pages(bible_data, template_dir, output_dir):
     for book_name, chapters in bible_data.items():
         # Generate chapter list
         chapter_links = '\n'.join([
-            f'<li><a href="/tanakh/{quote(book_name)}/{i+1}">פרק {number_to_hebrew_letters(i+1)}</a></li>'
+            f'<li><a href="/tanakh/{quote(book_name)}/chapter_{i+1}">פרק {number_to_hebrew_letters(i+1)}</a></li>'
             for i in range(len(chapters))
         ])
 
