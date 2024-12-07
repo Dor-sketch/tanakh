@@ -119,16 +119,16 @@ def generate_sitemap(bible_data, output_dir):
     <url>
         <loc>https://dorpascal.com/tanakh/{quote(book_name)}</loc>
         <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
+        <priority>0.4</priority>
     </url>""")
 
         # Add chapter pages
         for chapter_num in range(1, len(bible_data[book_name]) + 1):
             sitemap_content.append(f"""
     <url>
-        <loc>https://dorpascal.com/tanakh/{quote(book_name)}/{chapter_num}</loc>
+        <loc>https://dorpascal.com/tanakh/{quote(book_name)}/chapter_{chapter_num}</loc>
         <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
+        <priority>0.3</priority>
     </url>""")
 
     sitemap_content.append('</urlset>')
@@ -238,4 +238,6 @@ def main():
     print(f'- robots.txt')
 
 if __name__ == '__main__':
-    main()
+    bible_data = load_bible_data('./docs/assets/full_bible.json')
+    output_dir = './docs'
+    generate_sitemap(bible_data, output_dir)
