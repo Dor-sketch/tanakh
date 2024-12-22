@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
-Sitemap: https://dorpascal.com/sitemap.xml
+Sitemap: https://dorpascal.com/tanakh/sitemap.xml
 
 # Crawl-delay for specific bots
 User-agent: AhrefsBot
