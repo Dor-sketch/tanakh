@@ -2,3 +2,4 @@
 /proxy-server/node_modules
 /app
 *.zip
+/.venv/*
