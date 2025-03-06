@@ -1,25 +1,29 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Online Bible | Hebrew Bible Reader by Dor Pascal</title>
-    <meta name="description" content='Read the Hebrew Bible interactively. Choose a book, chapter, and read verses in Hebrew. Hebrew Bible with a user-friendly interface. Includes punctuation marks and chapter and verse numbers.'>
+    <title>Hebrew Bible Reader by Dor Pascal</title>
+    <meta name="description"
+        content="Read the Hebrew Bible interactively. Select a book, chapter, and read verses in original Hebrew. Hebrew Bible with a user-friendly interface. Includes punctuation and chapter and verse numbers.">
     <meta name="author" content="Dor Pascal">
-    <meta name="keywords" content='Bible, Hebrew Bible, Tanakh, Torah, Nevi-im, Ketuvim, Hebrew Reader, Interactive Bible'>
+    <meta name="keywords" content="Bible, Hebrew Bible, Tanakh, Torah, Nevi-im, Ketuvim">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://dorpascal.com/tanakh/">
-    <meta property="og:title" content='Hebrew Bible Reader | Hebrew Bible'>
-    <meta property="og:description" content='Read the Hebrew Bible interactively. Choose a book, chapter, and read verses in Hebrew. Hebrew Bible with a user-friendly interface. Includes punctuation marks and chapter and verse numbers.'>
+    <meta property="og:url" content="https://dorpascal.com/tanakh/en/">
+    <meta property="og:title" content="Hebrew Bible Reader | English Version">
+    <meta property="og:description"
+        content="Read the Hebrew Bible interactively. Select a book, chapter, and read verses in original Hebrew. Hebrew Bible with a user-friendly interface. Includes punctuation and chapter and verse numbers.">
     <meta property="og:image" content="https://dorpascal.com/tanakh/images/og-image.png">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://dorpascal.com/tanakh/">
-    <meta property="twitter:title" content='Hebrew Bible Reader | Hebrew Bible'>
-    <meta property="twitter:description" content='Read the Hebrew Bible interactively. Choose a book, chapter, and read verses in Hebrew.'>
+    <meta property="twitter:url" content="https://dorpascal.com/tanakh/en/">
+    <meta property="twitter:title" content="Hebrew Bible Reader | English Version">
+    <meta property="twitter:description"
+        content="Read the Hebrew Bible interactively. Select a book, chapter, and read verses in original Hebrew.">
     <meta property="twitter:image" content="https://dorpascal.com/tanakh/images/og-image.png">
 
     <!-- Favicon -->
@@ -31,15 +35,16 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://dorpascal.com/tanakh/en/">
 
-    <!-- alternate -->
     <link rel="alternate" hreflang="he" href="https://dorpascal.com/tanakh/">
     <link rel="alternate" hreflang="en" href="https://dorpascal.com/tanakh/en/">
     <link rel="alternate" hreflang="x-default" href="https://dorpascal.com/tanakh/">
 
-<!-- Styles -->
+    <meta name="apple-itunes-app" content="app-id=6736739283">
+
+    <!-- Styles -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@300;400;700&display=swap');
 
         :root {
             --primary-color: #2c3e50;
@@ -50,10 +55,26 @@
             --verse-hover-color: #f39c12;
             --modal-bg: rgba(0, 0, 0, 0.5);
             --modal-content-bg: #fff;
+            --white: #fff;
+        }
+
+        @media(prefers-color-scheme: dark) {
+            :root {
+                --primary-color: #1c2936;
+                --secondary-color: #34495e;
+                --accent-color: #e67e22;
+                --background-color: #2c3e50;
+                --text-color: #ecf0f1;
+                --verse-hover-color: #f39d1291;
+                --modal-bg: rgba(0, 0, 0, 0.5);
+                --modal-content-bg: #fff;
+                --white: #000;
+                color-scheme: dark;
+            }
         }
 
         body {
-            font-family: 'Frank Ruhl Libre', serif;
+            font-family: 'Noto Serif', serif;
             background-color: var(--background-color);
             color: var(--text-color);
             line-height: 1.6;
@@ -68,7 +89,7 @@
             flex-wrap: wrap;
             align-items: center;
             justify-content: center;
-            color: white;
+            color: var(--white);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -84,7 +105,9 @@
             align-items: center;
         }
 
-        .header select, .header input, .header button {
+        .header select,
+        .header input,
+        .header button {
             padding: 0.5rem 1rem;
             border: none;
             border-radius: 0.25rem;
@@ -92,7 +115,7 @@
         }
 
         .header select {
-            background-color: white;
+            background-color: var(--background-color);
             color: var(--text-color);
         }
 
@@ -108,7 +131,7 @@
         }
 
         .header button:hover {
-            background-color: darkorange;
+            background-color: var(--secondary-color);
         }
 
         .container {
@@ -119,17 +142,17 @@
             overflow-y: auto;
             margin: 0 auto;
             max-width: 800px;
-            direction: rtl;
         }
 
         .content-area {
-            background-color: white;
+            background-color: var(--white);
             border-radius: 0.5rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             padding: 2rem;
             flex-grow: 1;
             overflow-y: auto;
             transition: all 0.3s ease;
+            direction: rtl;
         }
 
         .verse {
@@ -143,7 +166,7 @@
 
         .verse:hover {
             background-color: var(--verse-hover-color);
-            color: white;
+            color: var(--text-color);
             transform: translateY(-2px);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
@@ -151,13 +174,13 @@
         .verse-number {
             font-weight: bold;
             color: var(--accent-color);
-            margin-left: 0.5rem;
+            margin-right: 0.5rem;
             font-size: 0.9em;
         }
 
         footer {
             background-color: var(--primary-color);
-            color: white;
+            color: var(--modal-content-bg);
             text-align: center;
             padding: 1rem;
             margin-top: 2rem;
@@ -170,7 +193,7 @@
         }
 
         footer a:hover {
-            color: white;
+            color: var(--accent-color);
             text-decoration: underline;
         }
 
@@ -187,6 +210,11 @@
 
             .content-area {
                 padding: 1rem;
+            }
+
+            .modal {
+                padding: 0 !important;
+                font-size: 0.8rem;
             }
         }
 
@@ -210,22 +238,25 @@
             background-color: yellow;
             color: black;
         }
+
         input {
-        color:#2c3e50;
-        background-color: #ecf0f1;
-        border: 1px solid #bdc3c7;
-        border-radius: 5px;
-        padding: 5px;
-        margin: 5px;
-        font-size: 16px;
+            color: #2c3e50;
+            background-color: #ecf0f1;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            padding: 5px;
+            margin: 5px;
+            font-size: 16px;
         }
 
         input:hover {
-        background-color: #bdc3c7;
+            background-color: #bdc3c7;
         }
+
         /* Modal styling */
         .modal {
-            display: none; /* Hidden by default */
+            display: none;
+            /* Hidden by default */
             position: fixed;
             z-index: 2000;
             left: 0;
@@ -245,6 +276,27 @@
             max-width: 600px;
             width: 90%;
             position: relative;
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin: 0;
+            padding: 1rem;
+            background-color: #93b0cd;
+            color: var(--white);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1:hover {
+            background-color: #7ba7d1;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
         }
 
         .modal-content h2 {
@@ -270,49 +322,74 @@
             font-size: 1rem;
             cursor: pointer;
             color: var(--primary-color);
+            padding: 8px 16px;
+            font-size: large;
+            border-radius: 7px;
         }
+
+        .close-modal:hover {
+            color: var(--accent-color);
+        }
+
+        .close-modal:focus {
+            outline: none;
+        }
+
         #toggleNumbering {
             background-color: var(--accent-color);
             color: white;
             border: none;
             border-radius: 4px;
-            width: 108px;
+            width: 100px;
             padding: 8px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            direction: rtl;
         }
 
         #toggleNumbering:hover {
-            background-color: darkorange;
+            background-color: var(--secondary-color);
         }
+
         .controls {
             display: flex;
             gap: 10px;
             margin-bottom: 10px;
         }
-        select, input[type="text"], button {
+
+        select,
+        input[type="text"],
+        button {
             padding: 10px;
             font-size: 16px;
             border: 1px solid #ced4da;
             border-radius: 4px;
         }
+
+        .controls select:hover {
+            filter: brightness(0.9);
+        }
+
         button {
             display: flex;
             align-items: center;
             gap: 5px;
-            background-color: #007bff;
+            background-color: var(--accent-color);
             color: white;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
+
         button svg {
             fill: white;
         }
+
         button:hover {
             background-color: #0056b3;
         }
 
-        #nextChapter, #prevChapter {
+        #nextChapter,
+        #prevChapter {
             display: flex;
             align-items: center;
             gap: 5px;
@@ -325,19 +402,89 @@
             border-radius: 4px;
         }
 
-        #nextChapter svg, #prevChapter svg {
+        #nextChapter svg,
+        #prevChapter svg {
             fill: white;
         }
 
-        #nextChapter:hover, #prevChapter:hover {
+        #nextChapter:hover,
+        #prevChapter:hover {
             background-color: #0056b3;
+        }
+
+        #book {
+        direction: rtl;
+        }
+
+        footer img {
+            margin: auto;
+        }
+
+        .modal {
+            font-family: system-ui, -apple-system, sans-serif;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+
+        .close-modal {
+            float: right;
+            font-size: 24px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .download-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .download-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .download-item img,
+        .download-item svg {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .browser-icons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .browser-icon {
+            width: 48px;
+            height: 48px;
         }
 
         /* Loading animation */
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
         }
+
         .loading {
             animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
@@ -348,12 +495,14 @@
                 padding-bottom: 6px;
                 padding-top: 6px;
             }
+
             .container {
                 padding: 1rem;
                 padding-top: 6px;
             }
 
-            .header select, .header input {
+            .header select,
+            .header input {
                 padding: 0.5rem;
             }
 
@@ -371,7 +520,7 @@
             }
 
             .verse-number {
-                margin-left: 0.25rem;
+                margin-right: 0.25rem;
             }
 
             .footer {
@@ -398,25 +547,39 @@
             gap: 10px;
         }
 
+        @media(prefers-color-scheme: dark) {
+           .verse {
+                background-color: rgba(38, 39, 39, 0.5);
+            }
+
+            .header {
+                background-color: rgba(38, 39, 39, 0.9);
+            }
+
+            .header select {
+                background-color: #2c3e50;
+                color: #ecf0f1;
+            }
+
+        }
 
     </style>
-
     <!-- Schema.org markup for Google -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "קורא התנ''ך העברי | Hebrew Bible Reader",
+      "name": "Hebrew Bible Reader",
       "url": "https://dorpascal.com/tanakh/en/",
       "author": {
         "@type": "Person",
         "name": "Dor Pascal"
       },
-      "description": "An interactive Hebrew Bible reader allowing users to select books, chapters, and read verses in Hebrew.",
+      "description": "An interactive Hebrew Bible reader allowing users to select books, chapters, and read verses in original Hebrew.",
       "applicationCategory": "ReferenceApplication",
       "applicationSubCategory": "Religious",
       "operatingSystem": "All",
-      "inLanguage": "he",
+      "inLanguage": "en",
       "softwareVersion": "1.0",
       "datePublished": "2023-01-01",
       "dateModified": "2023-10-01",
@@ -425,7 +588,7 @@
         "@type": "Offer",
         "price": "0",
         "priceCurrency": "USD",
-        "url": "https://dorpascal.com/tanakh/"
+        "url": "https://dorpascal.com/tanakh/en/"
       },
         "aggregateRating": {
             "@type": "AggregateRating",
@@ -460,7 +623,7 @@
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "תנ״ך מקוון - Chrome Extension",
+      "name": "Hebrew Bible - Chrome Extension",
       "url": "https://chrome.google.com/webstore/detail/%D7%AA%D7%A0%D7%B4%D7%9A-%D7%9E%D7%A7%D7%95%D7%95%D7%9F/jkadmhnjhehekcgcajgnjjiehiefndcd",
       "operatingSystem": "All",
       "applicationCategory": "ReferenceApplication",
@@ -473,7 +636,7 @@
         "priceCurrency": "USD",
         "url": "https://chrome.google.com/webstore/detail/%D7%AA%D7%A0%D7%B4%D7%9A-%D7%9E%D7%A7%D7%95%D7%95%D7%9F/jkadmhnjhehekcgcajgnjjiehiefndcd"
       },
-      "inLanguage": "he",
+      "inLanguage": "en",
       "author": {
         "@type": "Person",
         "name": "Dor Pascal"
@@ -494,21 +657,17 @@
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
-      "name": "Breadcrumbs List",
+      "description": "Breadcrumbs list for the Hebrew Bible Reader",
+      "name": "Hebrew Bible Reader",
       "itemListElement": [{
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
         "item": "https://dorpascal.com"
-      },{
+      }, {
         "@type": "ListItem",
         "position": 2,
         "name": "Hebrew Bible Reader",
-        "item": "https://dorpascal.com/tanakh/"
-      },{
-        "@type": "ListItem",
-        "position": 3,
-        "name": "English Version",
         "item": "https://dorpascal.com/tanakh/en/"
       }]
     }
@@ -523,6 +682,7 @@
         gtag('config', 'G-T7HFKFX0PR');
     </script>
 </head>
+
 <body>
     <div class="header">
         <div class="controls">
@@ -534,320 +694,475 @@
             </select>
             <input type="text" id="search" placeholder="Search the Bible" aria-label="Search the Bible" />
             <button id="searchButton">
-                <!-- Same SVG code as Hebrew version -->
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M10 2C5.58 2 2 5.58 2 10C2 14.42 5.58 18 10 18C11.85 18 13.55 17.35 14.88 16.24L20.29 21.65C20.68 22.04 21.31 22.04 21.7 21.65C22.09 21.26 22.09 20.63 21.7 20.24L16.29 14.83C17.35 13.55 18 11.85 18 10C18 5.58 14.42 2 10 2ZM10 4C13.31 4 16 6.69 16 10C16 13.31 13.31 16 10 16C6.69 16 4 13.31 4 10C4 6.69 6.69 4 10 4Z"
+                        fill="currentColor" />
+                </svg>
                 <span class="button-text">Search</span>
             </button>
             <button id="helpBtn">
-                <!-- Same SVG code as Hebrew version -->
+                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="16" height="16" viewBox="0 0 30 30">
+                    <path
+                        d="M 15.089844 3 C 10.131844 3 7.3202344 5.7778281 7.2402344 9.7988281 L 7.2402344 10 L 11.617188 10 L 11.617188 9.7988281 C 11.713187 8.0228281 12.941828 6.8769531 14.798828 6.8769531 C 16.639828 6.8769531 17.867188 7.9413594 17.867188 9.4433594 C 17.867188 10.945359 17.237297 11.720844 15.154297 12.964844 C 12.925297 14.272844 12.036094 15.726547 12.246094 18.310547 L 12.271484 19 L 16.558594 19 L 16.558594 18.34375 C 16.558594 16.79375 17.156688 16.000812 19.304688 14.757812 C 21.581688 13.416813 22.759766 11.721828 22.759766 9.2988281 C 22.759766 5.5678281 19.708844 3 15.089844 3 z M 14.507812 22 C 12.864813 22 11.839844 22.953813 11.839844 24.507812 C 11.839844 26.047813 12.865813 27 14.507812 27 C 16.149812 27 17.162109 26.047812 17.162109 24.507812 C 17.162109 22.953813 16.150813 22 14.507812 22 z">
+                    </path>
+                </svg>
                 <span class="button-text">Help</span>
             </button>
             <button id="aboutBtn">
-                <!-- Same SVG code as Hebrew version -->
+                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="16" height="16" viewBox="0 0 24 24">
+                    <path
+                        d="M 12 2 C 10.343 2 9 3.343 9 5 C 9 6.657 10.343 8 12 8 C 13.657 8 15 6.657 15 5 C 15 3.343 13.657 2 12 2 z M 9 10 A 1.0001 1.0001 0 1 0 9 12 L 10 12 L 10 20 L 9 20 A 1.0001 1.0001 0 1 0 9 22 L 15 22 A 1.0001 1.0001 0 1 0 15 20 L 14 20 L 14 11 C 14 10.448 13.552 10 13 10 L 11 10 L 9 10 z">
+                    </path>
+                </svg>
                 <span class="button-text">About</span>
             </button>
             <div id="prevNext">
-                <button id="prevChapter">
-                    <!-- Same SVG code as Hebrew version -->
-                    <span class="button-text">Previous Chapter</span>
-                </button>
                 <button id="nextChapter">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15.41 7.41L14 6L8 12L14 18L15.41 16.59L10.83 12L15.41 7.41Z" fill="currentColor" />
+                    </svg>
                     <span class="button-text">Next Chapter</span>
-                    <!-- Same SVG code as Hebrew version -->
+                </button>
+                <button id="prevChapter">
+                    <span class="button-text">Previous Chapter</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8.59 16.59L10 18L16 12L10 6L8.59 7.41L13.17 12L8.59 16.59Z" fill="currentColor" />
+                    </svg>
                 </button>
             </div>
         </div>
     </div>
+    <h1>Hebrew Bible Reader</h1>
     <div class="container">
         <div id="content" class="content-area w-full"></div>
     </div>
 
     <footer>
-        <p>Created by <a href="https://dorpascal.com/en" target="_blank" rel="noopener noreferrer">Dor Pascal</a></p>
+        <p>Created by <a href="https://dorpascal.com/en" target="_blank">Dor Pascal</a></p>
+        <a href="https://apps.apple.com/us/app/%D7%AA%D7%A0-%D7%9A/id6736739283?itscg=30200&itsct=apps_box_link&mttnsubad=6736739283"
+            target="_blank" aria-label="Download on the App Store">
+            <img src="https://dorpascal.com/assets/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg"
+                alt="Download on the App Store" width="120" height="40">
+        </a>
+        </a>
     </footer>
 
     <!-- Help Modal -->
     <div id="helpModal" class="modal">
         <div class="modal-content">
             <button class="close-modal" id="closeHelpModal">&times;</button>
-            <h2>First Time Use</h2>
-            <p>Welcome to the Online Bible! You can select a book, chapter, and read verses in Hebrew.</p>
-            <p>You can search for a term using the search bar, and navigate between chapters using the "Previous Chapter" and "Next Chapter" buttons.</p>
-            <p>The system remembers where you last read, and will open at that point next time you enter.</p>
+            <h2>First-Time Usage</h2>
+            <p>Welcome to the Hebrew Bible Reader! You can select a book, chapter, and read verses in original Hebrew.</p>
+            <p>You can search for expressions in the Bible using the search bar, and navigate between chapters using the "Previous Chapter" and "Next Chapter" buttons.</p>
+            <p>The system remembers the last position you read, and will open there the next time you access the page.</p>
         </div>
     </div>
-
-    <!-- About Modal -->
     <div id="aboutModal" class="modal">
         <div class="modal-content">
             <button class="close-modal" id="closeAboutModal">&times;</button>
+
             <h2>About</h2>
-            <p>The Online Bible was developed non-profit with the aim of making the Bible accessible in a user-friendly way.</p>
-            <p>The software operates with independently developed algorithms and is based on data from the <a href="https://www.sefaria.org/texts" target="_blank" rel="noopener noreferrer">Sefaria Project</a>.</p>
-            <p>The original code is available on <a href="https://github.com/Dor-sketch/tanakh" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
-            <p>If you find an error or have feedback, feel free to reach us at <a href="mailto:tanakh@dorpascal.com" target="_blank" rel="noopener noreferrer">tanakh@dorpascal.com</a></p>
+            <p>The Hebrew Bible Reader was developed as a non-profit project to make the Bible accessible to a wide audience in a convenient and easy-to-use format. The software allows you to read verses in English, search the Bible, and navigate between chapters. The software does not collect personal information about users, and the details required for its operation are stored locally exclusively on the users' devices.</p>
+
+            <p>
+                The software works with algorithms developed independently and is based on information from the <a
+                        href="https://www.sefaria.org/texts" target="_blank">Sefaria project</a>. The original code is available on <a href="https://github.com/Dor-sketch/tanakh" target="_blank">GitHub</a>. For more details, see the <a href="https://dorpascal.com/tanakh/privacy-policy">privacy policy</a>.
+            </p>
+            <div class="contact-section">
+                <p>If anyone finds an error or has any feedback, please feel free to contact us at <a
+                        href="mailto:tanakh@dorpascal.com">tanakh@dorpascal.com</a></p>
+            </div>
+
+            <div class="download-section">
+                <h3>Download for browsers:</h3>
+                <div class="browser-icons">
+                    <a href="https://chrome.google.com/webstore/detail/תנ״ך-מקוון/jkadmhnjhehekcgcajgnjjiehiefndcd"
+                        target="_blank" class="download-item">
+                        <img src="https://developer.chrome.com/static/docs/webstore/branding/image/YT2Grfi9vEBa2wAPzhWa.png"
+                            alt="Chrome Web Store" />
+                    </a>
+                    <a href="https://microsoftedge.microsoft.com/addons/detail/jomipflbgdbembbimeakhcppbfiphahn"
+                        target="_blank" class="download-item">
+                        <svg aria-hidden="true" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"
+                            itemprop="logo" itemscope="itemscope">
+                            <path d="M11.5216 0.5H0V11.9067H11.5216V0.5Z" fill="#f25022"></path>
+                            <path d="M24.2418 0.5H12.7202V11.9067H24.2418V0.5Z" fill="#7fba00"></path>
+                            <path d="M11.5216 13.0933H0V24.5H11.5216V13.0933Z" fill="#00a4ef"></path>
+                            <path d="M24.2418 13.0933H12.7202V24.5H24.2418V13.0933Z" fill="#ffb900"></path>
+                        </svg>
+                    </a>
+                    <a href="https://addons.mozilla.org/en-US/firefox/addon/tanakh/" target="_blank"
+                        class="download-item">
+                        <img src="https://blog.mozilla.org/addons/files/2015/11/get-the-addon.png"
+                            alt="Firefox Add-ons" />
+                    </a>
+                </div>
+
+                <h3>Download for Apple devices:</h3>
+                <div class="browser-icons">
+
+                <a href="https://apps.apple.com/us/app/%D7%AA%D7%A0-%D7%9A/id6736739283?itscg=30200&itsct=apps_box_artwork&mttnsubad=6736739283"
+                    style="position: relative; width: 100px; height: 100px; overflow: hidden; display: inline-block; vertical-align: middle;
+    --app-icon-mask: url('data:image/svg+xml,%0A%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xml%3Aspace%3D%22preserve%22%20viewBox%3D%220%200%20230.5%20230.5%22%3E%0A%20%20%3Cpath%20fill-rule%3D%22evenodd%22%20stroke-linejoin%3D%22round%22%20stroke-miterlimit%3D%221.4%22%20clip-rule%3D%22evenodd%22%20d%3D%22M158.2%20230H64.1a320%20320%200%200%201-7-.1c-5%200-10-.5-15-1.3a50.8%2050.8%200%200%201-14.4-4.8%2048.2%2048.2%200%200%201-21-21%2050.9%2050.9%200%200%201-4.8-14.4%20100.7%20100.7%200%200%201-1.3-15v-7l-.1-8.2V64.1a320%20320%200%200%201%20.1-7c0-5%20.5-10%201.3-15a50.7%2050.7%200%200%201%204.8-14.4%2048.2%2048.2%200%200%201%2021-21%2051%2051%200%200%201%2014.4-4.8c5-.8%2010-1.2%2015-1.3a320%20320%200%200%201%207%200l8.2-.1h94.1a320%20320%200%200%201%207%20.1c5%200%2010%20.5%2015%201.3a52%2052%200%200%201%2014.4%204.8%2048.2%2048.2%200%200%201%2021%2021%2050.9%2050.9%200%200%201%204.8%2014.4c.8%205%201.2%2010%201.3%2015a320%20320%200%200%201%20.1%207v102.3l-.1%207c0%205-.5%2010-1.3%2015a50.7%2050.7%200%200%201-4.8%2014.4%2048.2%2048.2%200%200%201-21%2021%2050.8%2050.8%200%200%201-14.4%204.8c-5%20.8-10%201.2-15%201.3a320%20320%200%200%201-7%200l-8.2.1z%22%2F%3E%0A%3C%2Fsvg%3E%0A');">
+
+                    <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/16/cf/5e/16cf5e4e-6095-7e30-f2b1-e5840f2fca9b/AppIcon-0-0-1x_U007epad-0-85-220.png/540x540bb.jpg"
+                        alt="Tanakh" style="width: 100%; height: 100%; object-fit: contain;
+           mask-image: var(--app-icon-mask); -webkit-mask-image: var(--app-icon-mask);" />
+
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230.5 230.5"
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; box-sizing: border-box;">
+                        <path fill="none" stroke="#000" stroke-linejoin="round" stroke-miterlimit="1.4"
+                            stroke-opacity=".1" stroke-width="1"
+                            d="M158.2 230H64.1a320 320 0 0 1-7-.1c-5 0-10-.5-15-1.3a50.8 50.8 0 0 1-14.4-4.8 48.2 48.2 0 0 1-21-21 50.9 50.9 0 0 1-4.8-14.4 100.7 100.7 0 0 1-1.3-15v-7l-.1-8.2V64.1a320 320 0 0 1 .1-7c0-5 .5-10 1.3-15a50.7 50.7 0 0 1 4.8-14.4 48.2 48.2 0 0 1 21-21 51 51 0 0 1 14.4-4.8c5-.8 10-1.2 15-1.3a320 320 0 0 1 7 0l8.2-.1h94.1a320 320 0 0 1 7 .1c5 0 10 .5 15 1.3a52 52 0 0 1 14.4 4.8 48.2 48.2 0 0 1 21 21 50.9 50.9 0 0 1 4.8 14.4c.8 5 1.2 10 1.3 15a320 320 0 0 1 .1 7v102.3l-.1 7c0 5-.5 10-1.3 15a50.7 50.7 0 0 1-4.8 14.4 48.2 48.2 0 0 1-21 21 50.8 50.8 0 0 1-14.4 4.8c-5 .8-10 1.2-15 1.3a320 320 0 0 1-7 0l-8.2.1z"
+                            clip-rule="evenodd" vector-effect="non-scaling-stroke" />
+                    </svg>
+                </a>
+
+  <a href="https://apps.apple.com/us/app/tanakh-for-safari/id6737229282?mt=12&itscg=30200&itsct=apps_box_artwork&mttnsubad=6737229282" style="position: relative; width: 120px; height: 120px; overflow: hidden; display: inline-block; vertical-align: middle;
+    --app-icon-mask: url('data:image/svg+xml,%0A%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xml%3Aspace%3D%22preserve%22%20viewBox%3D%220%200%20230.5%20230.5%22%3E%0A%20%20%3Cpath%20fill-rule%3D%22evenodd%22%20stroke-linejoin%3D%22round%22%20stroke-miterlimit%3D%221.4%22%20clip-rule%3D%22evenodd%22%20d%3D%22M158.2%20230H64.1a320%20320%200%200%201-7-.1c-5%200-10-.5-15-1.3a50.8%2050.8%200%200%201-14.4-4.8%2048.2%2048.2%200%200%201-21-21%2050.9%2050.9%200%200%201-4.8-14.4%20100.7%20100.7%200%200%201-1.3-15v-7l-.1-8.2V64.1a320%20320%200%200%201%20.1-7c0-5%20.5-10%201.3-15a50.7%2050.7%200%200%201%204.8-14.4%2048.2%2048.2%200%200%201%2021-21%2051%2051%200%200%201%2014.4-4.8c5-.8%2010-1.2%2015-1.3a320%20320%200%200%201%207%200l8.2-.1h94.1a320%20320%200%200%201%207%20.1c5%200%2010%20.5%2015%201.3a52%2052%200%200%201%2014.4%204.8%2048.2%2048.2%200%200%201%2021%2021%2050.9%2050.9%200%200%201%204.8%2014.4c.8%205%201.2%2010%201.3%2015a320%20320%200%200%201%20.1%207v102.3l-.1%207c0%205-.5%2010-1.3%2015a50.7%2050.7%200%200%201-4.8%2014.4%2048.2%2048.2%200%200%201-21%2021%2050.8%2050.8%200%200%201-14.4%204.8c-5%20.8-10%201.2-15%201.3a320%20320%200%200%201-7%200l-8.2.1z%22%2F%3E%0A%3C%2Fsvg%3E%0A');">
+
+      <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/6e/b1/7a/6eb17acc-44ef-9b1f-b60f-36db48fe89c4/AppIcon-0-0-85-220-0-4-0-2x.png/540x540bb.jpg" alt="Tanakh for Safari"
+           style="width: 100%; height: 100%; object-fit: contain;
+           mask-image: var(--app-icon-mask); -webkit-mask-image: var(--app-icon-mask);" />
+    </a>
+    </div>
+            </div>
         </div>
     </div>
 
-    <!-- JavaScript remains identical to the Hebrew version -->
+    <script>
+        const bibleDataUrl = '../assets/full_bible.json';
+        let bibleData = {};
+        let lastVisit = JSON.parse(localStorage.getItem('lastVisit_en')) || { book: 'Genesis', chapter: 1 };
+        let useHebrewNumbering = JSON.parse(localStorage.getItem('useHebrewNumbering_en') || 'false');
 
-<script>
-    const bibleDataUrl = 'https://dorpascal.com/tanakh/proxy-server/full_bible.json';
-    let bibleData = {};
-    let lastVisit = JSON.parse(localStorage.getItem('lastVisit')) || { book: 'בראשית', chapter: 1 };
-    let useHebrewNumbering = JSON.parse(localStorage.getItem('useHebrewNumbering') || 'true');
+        const bookSelect = document.getElementById('book');
+        const chapterSelect = document.getElementById('chapter');
+        const contentDiv = document.getElementById('content');
+        const searchInput = document.getElementById('search');
+        const searchButton = document.getElementById('searchButton');
+        const prevChapterBtn = document.getElementById('prevChapter');
+        const nextChapterBtn = document.getElementById('nextChapter');
+        const helpModal = document.getElementById('helpModal');
+        const helpBtn = document.getElementById('helpBtn');
+        const closeHelpModal = document.getElementById('closeHelpModal');
+        const aboutModal = document.getElementById('aboutModal');
+        const aboutBtn = document.getElementById('aboutBtn');
 
-    const bookSelect = document.getElementById('book');
-    const chapterSelect = document.getElementById('chapter');
-    const contentDiv = document.getElementById('content');
-    const searchInput = document.getElementById('search');
-    const searchButton = document.getElementById('searchButton');
-    const prevChapterBtn = document.getElementById('prevChapter');
-    const nextChapterBtn = document.getElementById('nextChapter');
-    const helpModal = document.getElementById('helpModal');
-    const helpBtn = document.getElementById('helpBtn');
-    const closeHelpModal = document.getElementById('closeHelpModal');
-    const aboutModal = document.getElementById('aboutModal');
-    const aboutBtn = document.getElementById('aboutBtn');
+        // Create toggle button for numbering system
+        const toggleNumberingBtn = document.createElement('button');
+        toggleNumberingBtn.textContent = useHebrewNumbering ? '1. 2. 3. 4. ...' : 'א׳ ב׳ ג׳ ד׳ ...';
+        toggleNumberingBtn.id = 'toggleNumbering';
+        const prevNext = document.getElementById('prevNext');
+        const parent = prevNext.parentNode;
 
-    // Create toggle button for numbering system
-    const toggleNumberingBtn = document.createElement('button');
-    toggleNumberingBtn.textContent = useHebrewNumbering ? 'Digital Numbers' : 'Hebrew Numbers';
-    toggleNumberingBtn.id = 'toggleNumbering';
-    const prevNext = document.getElementById('prevNext');
-    const parent = prevNext.parentNode;
-
-    // append it before the prevNext div
-    parent.insertBefore(toggleNumberingBtn, prevNext);
-    // Function to load Bible data from JSON file
-    async function loadBibleData() {
-        try {
-            const response = await fetch(bibleDataUrl);
-            if (!response.ok) {
-                throw new Error(`Failed to load full_bible.json: ${response.statusText}`);
+        // append it before the prevNext div
+        parent.insertBefore(toggleNumberingBtn, prevNext);
+        // Function to load Bible data from JSON file
+        async function loadBibleData() {
+            try {
+                const response = await fetch(bibleDataUrl);
+                if (!response.ok) {
+                    throw new Error(`Failed to load full_bible.json: ${response.statusText}`);
+                }
+                bibleData = await response.json();
+                populateBooks();
+                openLastVisit();
+            } catch (error) {
+                console.error('Error loading Bible data:', error);
+                contentDiv.innerHTML = '<p class="error">Error loading Bible data. Please try again.</p>';
             }
-            bibleData = await response.json();
-            populateBooks();
-            openLastVisit();
-        } catch (error) {
-            console.error('Error loading Bible data:', error);
-            contentDiv.innerHTML = '<p class="error">שגיאה בטעינת נתוני התנ"ך. אנא נסה שוב.</p>';
-        }
-    }
-
-    // Populate book select dropdown
-    function populateBooks() {
-        const books = Object.keys(bibleData);
-        bookSelect.innerHTML = '<option value="">בחר ספר</option>';
-        books.forEach(book => {
-            const option = document.createElement('option');
-            option.value = book;
-            option.textContent = book;
-            bookSelect.appendChild(option);
-        });
-        bookSelect.value = lastVisit.book;
-    }
-
-    // Populate chapter dropdown based on selected book
-    function populateChapters(book) {
-        const chapters = bibleData[book];
-        chapterSelect.innerHTML = '<option value="">בחר פרק</option>';
-        chapters.forEach((_, index) => {
-            const option = document.createElement('option');
-            option.value = index + 1;
-            option.textContent = `פרק ${formatNumber(index + 1)}`;
-            chapterSelect.appendChild(option);
-        });
-        chapterSelect.value = lastVisit.chapter;
-    }
-
-    // Function to convert number to Hebrew letters with correct quotation placement
-    function numberToHebrewLetters(num) {
-        const hebChars = "אבגדהוזחטיכלמנסעפצקרשת";
-        const hebTens = "יכלמנסעפצ";
-        let result = "";
-
-        if (num >= 1000) {
-            result = numberToHebrewLetters(Math.floor(num / 1000)) + "'";
-            num %= 1000;
         }
 
-        if (num >= 100) {
-            result += hebChars[Math.floor(num / 100) - 1];
-            num %= 100;
+        function openLastVisit() {
+            const { book, chapter } = lastVisit;
+            if (book && chapter) {
+                bookSelect.value = book;
+                populateChapters(book);
+                loadChapterContent(book, chapter);
+            }
         }
 
-        if (num >= 10) {
-            result += hebTens[Math.floor(num / 10) - 1];
-            num %= 10;
+        function translateBookName(book) {
+            const bookNames = {
+                'Genesis': 'בראשית',
+                'Exodus': 'שמות',
+                'Leviticus': 'ויקרא',
+                'Numbers': 'במדבר',
+                'Deuteronomy': 'דברים',
+                'Joshua': 'יהושע',
+                'Judges': 'שופטים',
+                'Samuel 1': 'שמואל א',
+                'Samuel 2': 'שמואל ב',
+                'Kings 1': 'מלכים א',
+                'Kings 2': 'מלכים ב',
+                'Isaiah': 'ישעיה',
+                'Jeremiah': 'ירמיה',
+                'Ezekiel': 'יחזקאל',
+                'Hosea': 'הושע',
+                'Joel': 'יואל',
+                'Amos': 'עמוס',
+                'Obadiah': 'עובדיה',
+                'Jonah': 'יונה',
+                'Micah': 'מיכה',
+                'Nahum': 'נחום',
+                'Habakkuk': 'חבקוק',
+                'Zephaniah': 'צפניה',
+                'Haggai': 'חגי',
+                'Zechariah': 'זכריה',
+                'Malachi': 'מלאכי',
+                'Psalms': 'תהילים',
+                'Proverbs': 'משלי',
+                'Job': 'איוב',
+                'Song of Songs': 'שיר השירים',
+                'Ruth': 'רות',
+                'Lamentations': 'איכה',
+                'Ecclesiastes': 'קהלת',
+                'Esther': 'אסתר',
+                'Daniel': 'דניאל',
+                'Ezra': 'עזרא',
+                'Nehemiah': 'נחמיה',
+                'Chronicles 1': 'דברי הימים א',
+                'Chronicles 2': 'דברי הימים ב'
+            };
+
+            return bookNames[book] || book;
         }
 
-        if (num > 0) {
-            result += hebChars[num - 1];
+        // Populate book select dropdown
+        function populateBooks() {
+            const books = Object.keys(bibleData);
+            bookSelect.innerHTML = '<option value="">Select Book</option>';
+            books.forEach(book => {
+                const option = document.createElement('option');
+                option.value = book;
+                option.textContent = translateBookName(book);
+                bookSelect.appendChild(option);
+            });
+            bookSelect.value = lastVisit.book;
         }
 
-        // Special cases for 15 and 16
-        result = result.replace('יה', 'טו').replace('יו', 'טז');
-
-        // Insert quotation mark between characters for numbers 11-99
-        if (result.length === 2) {
-            result = result[0] + '"' + result[1];
-        } else if (result.length > 2) {
-            result += '"';
-        } else {
-            result += "'";
+        // Populate chapter dropdown based on selected book
+        function populateChapters(book) {
+            const chapters = bibleData[book];
+            chapterSelect.innerHTML = '<option value="">Select Chapter</option>';
+            chapters.forEach((_, index) => {
+                const option = document.createElement('option');
+                option.value = index + 1;
+                option.textContent = `Chapter ${formatNumber(index + 1)}`;
+                chapterSelect.appendChild(option);
+            });
+            chapterSelect.value = lastVisit.chapter;
         }
 
-        return result;
-    }
+        // Function to convert number to Hebrew letters with correct quotation placement
+        function numberToHebrewLetters(num) {
+            const hebChars = "אבגדהוזחטיכלמנסעפצקרשת";
+            const hebTens = "יכלמנסעפצ";
+            let result = "";
 
-    // Function to format number based on current numbering system
-    function formatNumber(num) {
-        return useHebrewNumbering ? numberToHebrewLetters(num) : num.toString();
-    }
+            if (num >= 1000) {
+                result = numberToHebrewLetters(Math.floor(num / 1000)) + "'";
+                num %= 1000;
+            }
 
-    // Load content for selected book and chapter
-    function loadChapterContent(book, chapter) {
-        const verses = bibleData[book][chapter - 1];
-        contentDiv.innerHTML = verses.map((verse, index) => `
+            if (num >= 100) {
+                result += hebChars[Math.floor(num / 100) - 1];
+                num %= 100;
+            }
+
+            if (num >= 10) {
+                result += hebTens[Math.floor(num / 10) - 1];
+                num %= 10;
+            }
+
+            if (num > 0) {
+                result += hebChars[num - 1];
+            }
+
+            // Special cases for 15 and 16
+            result = result.replace('יה', 'טו').replace('יו', 'טז');
+
+            // Insert quotation mark between characters for numbers 11-99
+            if (result.length === 2) {
+                result = result[0] + '"' + result[1];
+            } else if (result.length > 2) {
+                result += '"';
+            } else {
+                result += "'";
+            }
+
+            return result;
+        }
+
+        // Function to format number based on current numbering system
+        function formatNumber(num) {
+            return useHebrewNumbering ? numberToHebrewLetters(num) : num.toString();
+        }
+
+        // Load content for selected book and chapter
+        function loadChapterContent(book, chapter) {
+            const verses = bibleData[book][chapter - 1];
+            contentDiv.innerHTML = verses.map((verse, index) => `
             <p class="verse" data-verse="${index + 1}">
                 <span class="verse-number">${formatNumber(index + 1)}</span>
                 ${verse}
             </p>
         `).join('');
 
-        // Store last visit in localStorage
-        localStorage.setItem('lastVisit', JSON.stringify({ book, chapter }));
-    }
-
-    // Navigate to previous chapter
-    prevChapterBtn.addEventListener('click', () => {
-        let currentChapter = parseInt(chapterSelect.value);
-        if (currentChapter > 1) {
-            chapterSelect.value = currentChapter - 1;
-            loadChapterContent(bookSelect.value, currentChapter - 1);
+            // Store last visit in localStorage
+            localStorage.setItem('lastVisit_en', JSON.stringify({ book, chapter }));
         }
-    });
 
-    // Navigate to next chapter
-    nextChapterBtn.addEventListener('click', () => {
-        let currentChapter = parseInt(chapterSelect.value);
-        if (currentChapter < bibleData[bookSelect.value].length) {
-            chapterSelect.value = currentChapter + 1;
-            loadChapterContent(bookSelect.value, currentChapter + 1);
+        // Navigate to previous chapter
+        prevChapterBtn.addEventListener('click', () => {
+            let currentChapter = parseInt(chapterSelect.value);
+            if (currentChapter > 1) {
+                chapterSelect.value = currentChapter - 1;
+                loadChapterContent(bookSelect.value, currentChapter - 1);
+            }
+        });
 
-            // Scroll to the top of the page with a smooth effect
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
-    });
+        // Navigate to next chapter
+        nextChapterBtn.addEventListener('click', () => {
+            let currentChapter = parseInt(chapterSelect.value);
+            if (currentChapter < bibleData[bookSelect.value].length) {
+                chapterSelect.value = currentChapter + 1;
+                loadChapterContent(bookSelect.value, currentChapter + 1);
 
-    // Handle book selection
-    bookSelect.addEventListener('change', () => {
-        const selectedBook = bookSelect.value;
-        if (selectedBook) {
-            populateChapters(selectedBook);
-            loadChapterContent(selectedBook, 1); // Load first chapter by default
-        }
-    });
+                // Scroll to the top of the page with a smooth effect
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        });
 
-    // Handle chapter selection
-    chapterSelect.addEventListener('change', () => {
-        const selectedChapter = chapterSelect.value;
-        if (selectedChapter) {
-            loadChapterContent(bookSelect.value, selectedChapter);
-        }
-    });
+        // Handle book selection
+        bookSelect.addEventListener('change', () => {
+            const selectedBook = bookSelect.value;
+            if (selectedBook) {
+                populateChapters(selectedBook);
+                loadChapterContent(selectedBook, 1); // Load first chapter by default
+            }
+        });
 
-    // Search functionality
-    searchButton.addEventListener('click', performSearch);
-    searchInput.addEventListener('keypress', event => {
-        if (event.key === 'Enter') {
-            performSearch();
-        }
-    });
+        // Handle chapter selection
+        chapterSelect.addEventListener('change', () => {
+            const selectedChapter = chapterSelect.value;
+            if (selectedChapter) {
+                loadChapterContent(bookSelect.value, selectedChapter);
+            }
+        });
 
-    function performSearch() {
-        const query = searchInput.value.trim();
-        if (!query) return;
+        // Search functionality
+        searchButton.addEventListener('click', performSearch);
+        searchInput.addEventListener('keypress', event => {
+            if (event.key === 'Enter') {
+                performSearch();
+            }
+        });
 
-        const regex = new RegExp(removeNikud(query), 'gi');
-        contentDiv.innerHTML = '';
+        function performSearch() {
+            const query = searchInput.value.trim();
+            if (!query) return;
 
-        Object.keys(bibleData).forEach(book => {
-            bibleData[book].forEach((chapter, chapterIndex) => {
-                chapter.forEach((verse, verseIndex) => {
-                    if (regex.test(removeNikud(verse))) {
-                        contentDiv.innerHTML += `
+            const regex = new RegExp(removeNikud(query), 'gi');
+            contentDiv.innerHTML = '';
+
+            Object.keys(bibleData).forEach(book => {
+                bibleData[book].forEach((chapter, chapterIndex) => {
+                    chapter.forEach((verse, verseIndex) => {
+                        if (regex.test(removeNikud(verse))) {
+                            contentDiv.innerHTML += `
                             <p class="verse">
                                 <span class="verse-number">(${book} ${formatNumber(chapterIndex + 1)}:${formatNumber(verseIndex + 1)})</span>
                                 ${verse.replace(regex, match => `<span class="highlight">${match}</span>`)}
                             </p>
                         `;
-                    }
+                        }
+                    });
                 });
             });
+
+            if (contentDiv.innerHTML === '') {
+                contentDiv.innerHTML = '<p>לא נמצאו תוצאות</p>';
+            }
+        }
+
+        // Function to remove Nikud (diacritical marks) from Hebrew text
+        function removeNikud(text) {
+            return text.replace(/[\u0591-\u05C7]/g, "");  // Unicode range for Hebrew Nikud
+        }
+
+        // Toggle numbering system
+        toggleNumberingBtn.addEventListener('click', () => {
+            useHebrewNumbering = !useHebrewNumbering;
+            localStorage.setItem('useHebrewNumbering_en', JSON.stringify(useHebrewNumbering));
+            toggleNumberingBtn.textContent = useHebrewNumbering ? '1. 2. 3. 4. ...' : 'א׳ ב׳ ג׳ ד׳ ...';
+            populateChapters(bookSelect.value);
+            loadChapterContent(bookSelect.value, chapterSelect.value);
         });
 
-        if (contentDiv.innerHTML === '') {
-            contentDiv.innerHTML = '<p>לא נמצאו תוצאות</p>';
-        }
-    }
+        // Show help modal
+        helpBtn.addEventListener('click', () => {
+            helpModal.style.display = 'flex';
+        });
 
-    // Function to remove Nikud (diacritical marks) from Hebrew text
-    function removeNikud(text) {
-        return text.replace(/[\u0591-\u05C7]/g, "");  // Unicode range for Hebrew Nikud
-    }
-
-    // Toggle numbering system
-    toggleNumberingBtn.addEventListener('click', () => {
-        useHebrewNumbering = !useHebrewNumbering;
-        localStorage.setItem('useHebrewNumbering', JSON.stringify(useHebrewNumbering));
-        toggleNumberingBtn.textContent = useHebrewNumbering ? 'Digital Numbers' : 'Hebrew Numbers';
-        populateChapters(bookSelect.value);
-        loadChapterContent(bookSelect.value, chapterSelect.value);
-    });
-
-    // Show help modal
-    helpBtn.addEventListener('click', () => {
-        helpModal.style.display = 'flex';
-    });
-
-    // Close help modal
-    closeHelpModal.addEventListener('click', () => {
-        helpModal.style.display = 'none';
-    });
-
-    // Show about modal
-    aboutBtn.addEventListener('click', () => {
-        aboutModal.style.display = 'flex';
-    });
-
-    // Close about modal
-    closeAboutModal.addEventListener('click', () => {
-        aboutModal.style.display = 'none';
-    });
-
-    // Load the last visit or default to בראשית, פרק 1
-    function openLastVisit() {
-        const { book, chapter } = lastVisit;
-        if (bibleData[book]) {
-            populateChapters(book);
-            loadChapterContent(book, chapter);
-        }
-    }
-
-    // Load Bible data on page load
-    window.addEventListener('DOMContentLoaded', loadBibleData);
-
-    // Hide modal when clicking outside the modal content
-    window.addEventListener('click', event => {
-        if (event.target === helpModal) {
+        // Close help modal
+        closeHelpModal.addEventListener('click', () => {
             helpModal.style.display = 'none';
+        });
+
+        // Show about modal
+        aboutBtn.addEventListener('click', () => {
+            aboutModal.style.display = 'flex';
+        });
+
+        // Close about modal
+        closeAboutModal.addEventListener('click', () => {
+            aboutModal.style.display = 'none';
+        });
+
+        // Load the last visit or default to Genesis, Chapter 1
+        function openLastVisit() {
+            let { book, chapter } = lastVisit;
+
+            // Convert English book name to Hebrew if needed
+            const hebrewToEnglish = {};
+            Object.keys(bibleData).forEach(hebrewName => {
+                const englishName = translateBookName(hebrewName);
+                hebrewToEnglish[englishName] = hebrewName;
+            });
+
+            // If book is in English format, convert to Hebrew key
+            if (hebrewToEnglish[book]) {
+                book = hebrewToEnglish[book];
+            }
+
+            if (bibleData[book]) {
+                populateChapters(book);
+                loadChapterContent(book, chapter);
+            } else {
+                // Default to Genesis (בראשית) if book not found
+                const defaultBook = 'בראשית';
+                populateChapters(defaultBook);
+                loadChapterContent(defaultBook, 1);
+            }
         }
-    });
-</script>
+
+        // Load Bible data on page load
+        window.addEventListener('DOMContentLoaded', loadBibleData);
+
+        // Hide modal when clicking outside the modal content
+        window.addEventListener('click', event => {
+            if (event.target === helpModal) {
+                helpModal.style.display = 'none';
+            }
+        });
+    </script>
 
 </body>
+
 </html>
