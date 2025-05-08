@@ -101,7 +101,6 @@
         .header .controls {
             display: flex;
             flex-wrap: wrap;
-            gap: 1rem;
             align-items: center;
         }
 
@@ -278,6 +277,8 @@
             position: relative;
             background: var(--white);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--secondary-color);
+            border-radius: 22px;
         }
 
         h1 {
@@ -294,7 +295,7 @@
         }
 
         h2 {
-            color: var(--primary-color);
+            color: var(--accent-color);
             margin-bottom: 1rem;
             font-size: 1.5rem;
         }
@@ -314,17 +315,15 @@
         }
 
         .close-modal {
-            position: absolute;
-            top: 0;
-            right: 0;
-            background: none;
+            float: right;
+            font-size: 24px;
             border: none;
-            font-size: 1rem;
+            background: none;
             cursor: pointer;
-            color: var(--primary-color);
-            padding: 8px 16px;
-            font-size: large;
-            border-radius: 7px;
+            padding: 0.5rem;
+            width: 30px;
+            height: 30px;
+            color: var(--accent-color);
         }
 
         .close-modal:hover {
@@ -413,7 +412,7 @@
         }
 
         #book {
-        direction: rtl;
+            direction: rtl;
         }
 
         footer img {
@@ -548,7 +547,7 @@
         }
 
         @media(prefers-color-scheme: dark) {
-           .verse {
+            .verse {
                 background-color: rgba(38, 39, 39, 0.5);
             }
 
@@ -562,7 +561,6 @@
             }
 
         }
-
     </style>
     <!-- Schema.org markup for Google -->
     <script type="application/ld+json">
@@ -753,9 +751,12 @@
         <div class="modal-content">
             <button class="close-modal" id="closeHelpModal">&times;</button>
             <h2>First-Time Usage</h2>
-            <p>Welcome to the Hebrew Bible Reader! You can select a book, chapter, and read verses in original Hebrew.</p>
-            <p>You can search for expressions in the Bible using the search bar, and navigate between chapters using the "Previous Chapter" and "Next Chapter" buttons.</p>
-            <p>The system remembers the last position you read, and will open there the next time you access the page.</p>
+            <p>Welcome to the Hebrew Bible Reader! You can select a book, chapter, and read verses in original Hebrew.
+            </p>
+            <p>You can search for expressions in the Bible using the search bar, and navigate between chapters using the
+                "Previous Chapter" and "Next Chapter" buttons.</p>
+            <p>The system remembers the last position you read, and will open there the next time you access the page.
+            </p>
         </div>
     </div>
     <div id="aboutModal" class="modal">
@@ -763,11 +764,17 @@
             <button class="close-modal" id="closeAboutModal">&times;</button>
 
             <h2>About</h2>
-            <p>The Hebrew Bible Reader was developed as a non-profit project to make the Bible accessible to a wide audience in a convenient and easy-to-use format. The software allows you to read verses in English, search the Bible, and navigate between chapters. The software does not collect personal information about users, and the details required for its operation are stored locally exclusively on the users' devices.</p>
+            <p>The Hebrew Bible Reader was developed as a non-profit project to make the Bible accessible to a wide
+                audience in a convenient and easy-to-use format. The software allows you to read verses in English,
+                search the Bible, and navigate between chapters. The software does not collect personal information
+                about users, and the details required for its operation are stored locally exclusively on the users'
+                devices.</p>
 
             <p>
                 The software works with algorithms developed independently and is based on information from the <a
-                        href="https://www.sefaria.org/texts" target="_blank">Sefaria project</a>. The original code is available on <a href="https://github.com/Dor-sketch/tanakh" target="_blank">GitHub</a>. For more details, see the <a href="https://dorpascal.com/tanakh/privacy-policy">privacy policy</a>.
+                    href="https://www.sefaria.org/texts" target="_blank">Sefaria project</a>. The original code is
+                available on <a href="https://github.com/Dor-sketch/tanakh" target="_blank">GitHub</a>. For more
+                details, see the <a href="https://dorpascal.com/tanakh/privacy-policy">privacy policy</a>.
             </p>
             <div class="contact-section">
                 <p>If anyone finds an error or has any feedback, please feel free to contact us at <a
@@ -802,31 +809,32 @@
                 <h3>Download for Apple devices:</h3>
                 <div class="browser-icons">
 
-                <a href="https://apps.apple.com/us/app/%D7%AA%D7%A0-%D7%9A/id6736739283?itscg=30200&itsct=apps_box_artwork&mttnsubad=6736739283"
-                    style="position: relative; width: 100px; height: 100px; overflow: hidden; display: inline-block; vertical-align: middle;
+                    <a href="https://apps.apple.com/us/app/%D7%AA%D7%A0-%D7%9A/id6736739283?itscg=30200&itsct=apps_box_artwork&mttnsubad=6736739283"
+                        style="position: relative; width: 100px; height: 100px; overflow: hidden; display: inline-block; vertical-align: middle;
     --app-icon-mask: url('data:image/svg+xml,%0A%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xml%3Aspace%3D%22preserve%22%20viewBox%3D%220%200%20230.5%20230.5%22%3E%0A%20%20%3Cpath%20fill-rule%3D%22evenodd%22%20stroke-linejoin%3D%22round%22%20stroke-miterlimit%3D%221.4%22%20clip-rule%3D%22evenodd%22%20d%3D%22M158.2%20230H64.1a320%20320%200%200%201-7-.1c-5%200-10-.5-15-1.3a50.8%2050.8%200%200%201-14.4-4.8%2048.2%2048.2%200%200%201-21-21%2050.9%2050.9%200%200%201-4.8-14.4%20100.7%20100.7%200%200%201-1.3-15v-7l-.1-8.2V64.1a320%20320%200%200%201%20.1-7c0-5%20.5-10%201.3-15a50.7%2050.7%200%200%201%204.8-14.4%2048.2%2048.2%200%200%201%2021-21%2051%2051%200%200%201%2014.4-4.8c5-.8%2010-1.2%2015-1.3a320%20320%200%200%201%207%200l8.2-.1h94.1a320%20320%200%200%201%207%20.1c5%200%2010%20.5%2015%201.3a52%2052%200%200%201%2014.4%204.8%2048.2%2048.2%200%200%201%2021%2021%2050.9%2050.9%200%200%201%204.8%2014.4c.8%205%201.2%2010%201.3%2015a320%20320%200%200%201%20.1%207v102.3l-.1%207c0%205-.5%2010-1.3%2015a50.7%2050.7%200%200%201-4.8%2014.4%2048.2%2048.2%200%200%201-21%2021%2050.8%2050.8%200%200%201-14.4%204.8c-5%20.8-10%201.2-15%201.3a320%20320%200%200%201-7%200l-8.2.1z%22%2F%3E%0A%3C%2Fsvg%3E%0A');">
 
-                    <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/16/cf/5e/16cf5e4e-6095-7e30-f2b1-e5840f2fca9b/AppIcon-0-0-1x_U007epad-0-85-220.png/540x540bb.jpg"
-                        alt="Tanakh" style="width: 100%; height: 100%; object-fit: contain;
+                        <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/16/cf/5e/16cf5e4e-6095-7e30-f2b1-e5840f2fca9b/AppIcon-0-0-1x_U007epad-0-85-220.png/540x540bb.jpg"
+                            alt="Tanakh" style="width: 100%; height: 100%; object-fit: contain;
            mask-image: var(--app-icon-mask); -webkit-mask-image: var(--app-icon-mask);" />
 
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230.5 230.5"
-                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; box-sizing: border-box;">
-                        <path fill="none" stroke="#000" stroke-linejoin="round" stroke-miterlimit="1.4"
-                            stroke-opacity=".1" stroke-width="1"
-                            d="M158.2 230H64.1a320 320 0 0 1-7-.1c-5 0-10-.5-15-1.3a50.8 50.8 0 0 1-14.4-4.8 48.2 48.2 0 0 1-21-21 50.9 50.9 0 0 1-4.8-14.4 100.7 100.7 0 0 1-1.3-15v-7l-.1-8.2V64.1a320 320 0 0 1 .1-7c0-5 .5-10 1.3-15a50.7 50.7 0 0 1 4.8-14.4 48.2 48.2 0 0 1 21-21 51 51 0 0 1 14.4-4.8c5-.8 10-1.2 15-1.3a320 320 0 0 1 7 0l8.2-.1h94.1a320 320 0 0 1 7 .1c5 0 10 .5 15 1.3a52 52 0 0 1 14.4 4.8 48.2 48.2 0 0 1 21 21 50.9 50.9 0 0 1 4.8 14.4c.8 5 1.2 10 1.3 15a320 320 0 0 1 .1 7v102.3l-.1 7c0 5-.5 10-1.3 15a50.7 50.7 0 0 1-4.8 14.4 48.2 48.2 0 0 1-21 21 50.8 50.8 0 0 1-14.4 4.8c-5 .8-10 1.2-15 1.3a320 320 0 0 1-7 0l-8.2.1z"
-                            clip-rule="evenodd" vector-effect="non-scaling-stroke" />
-                    </svg>
-                </a>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230.5 230.5"
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; box-sizing: border-box;">
+                            <path fill="none" stroke="#000" stroke-linejoin="round" stroke-miterlimit="1.4"
+                                stroke-opacity=".1" stroke-width="1"
+                                d="M158.2 230H64.1a320 320 0 0 1-7-.1c-5 0-10-.5-15-1.3a50.8 50.8 0 0 1-14.4-4.8 48.2 48.2 0 0 1-21-21 50.9 50.9 0 0 1-4.8-14.4 100.7 100.7 0 0 1-1.3-15v-7l-.1-8.2V64.1a320 320 0 0 1 .1-7c0-5 .5-10 1.3-15a50.7 50.7 0 0 1 4.8-14.4 48.2 48.2 0 0 1 21-21 51 51 0 0 1 14.4-4.8c5-.8 10-1.2 15-1.3a320 320 0 0 1 7 0l8.2-.1h94.1a320 320 0 0 1 7 .1c5 0 10 .5 15 1.3a52 52 0 0 1 14.4 4.8 48.2 48.2 0 0 1 21 21 50.9 50.9 0 0 1 4.8 14.4c.8 5 1.2 10 1.3 15a320 320 0 0 1 .1 7v102.3l-.1 7c0 5-.5 10-1.3 15a50.7 50.7 0 0 1-4.8 14.4 48.2 48.2 0 0 1-21 21 50.8 50.8 0 0 1-14.4 4.8c-5 .8-10 1.2-15 1.3a320 320 0 0 1-7 0l-8.2.1z"
+                                clip-rule="evenodd" vector-effect="non-scaling-stroke" />
+                        </svg>
+                    </a>
 
-  <a href="https://apps.apple.com/us/app/tanakh-for-safari/id6737229282?mt=12&itscg=30200&itsct=apps_box_artwork&mttnsubad=6737229282" style="position: relative; width: 120px; height: 120px; overflow: hidden; display: inline-block; vertical-align: middle;
+                    <a href="https://apps.apple.com/us/app/tanakh-for-safari/id6737229282?mt=12&itscg=30200&itsct=apps_box_artwork&mttnsubad=6737229282"
+                        style="position: relative; width: 120px; height: 120px; overflow: hidden; display: inline-block; vertical-align: middle;
     --app-icon-mask: url('data:image/svg+xml,%0A%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xml%3Aspace%3D%22preserve%22%20viewBox%3D%220%200%20230.5%20230.5%22%3E%0A%20%20%3Cpath%20fill-rule%3D%22evenodd%22%20stroke-linejoin%3D%22round%22%20stroke-miterlimit%3D%221.4%22%20clip-rule%3D%22evenodd%22%20d%3D%22M158.2%20230H64.1a320%20320%200%200%201-7-.1c-5%200-10-.5-15-1.3a50.8%2050.8%200%200%201-14.4-4.8%2048.2%2048.2%200%200%201-21-21%2050.9%2050.9%200%200%201-4.8-14.4%20100.7%20100.7%200%200%201-1.3-15v-7l-.1-8.2V64.1a320%20320%200%200%201%20.1-7c0-5%20.5-10%201.3-15a50.7%2050.7%200%200%201%204.8-14.4%2048.2%2048.2%200%200%201%2021-21%2051%2051%200%200%201%2014.4-4.8c5-.8%2010-1.2%2015-1.3a320%20320%200%200%201%207%200l8.2-.1h94.1a320%20320%200%200%201%207%20.1c5%200%2010%20.5%2015%201.3a52%2052%200%200%201%2014.4%204.8%2048.2%2048.2%200%200%201%2021%2021%2050.9%2050.9%200%200%201%204.8%2014.4c.8%205%201.2%2010%201.3%2015a320%20320%200%200%201%20.1%207v102.3l-.1%207c0%205-.5%2010-1.3%2015a50.7%2050.7%200%200%201-4.8%2014.4%2048.2%2048.2%200%200%201-21%2021%2050.8%2050.8%200%200%201-14.4%204.8c-5%20.8-10%201.2-15%201.3a320%20320%200%200%201-7%200l-8.2.1z%22%2F%3E%0A%3C%2Fsvg%3E%0A');">
 
-      <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/6e/b1/7a/6eb17acc-44ef-9b1f-b60f-36db48fe89c4/AppIcon-0-0-85-220-0-4-0-2x.png/540x540bb.jpg" alt="Tanakh for Safari"
-           style="width: 100%; height: 100%; object-fit: contain;
+                        <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/6e/b1/7a/6eb17acc-44ef-9b1f-b60f-36db48fe89c4/AppIcon-0-0-85-220-0-4-0-2x.png/540x540bb.jpg"
+                            alt="Tanakh for Safari" style="width: 100%; height: 100%; object-fit: contain;
            mask-image: var(--app-icon-mask); -webkit-mask-image: var(--app-icon-mask);" />
-    </a>
-    </div>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
